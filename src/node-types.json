@@ -1,0 +1,245 @@
+[
+  {
+    "type": "class_rule",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "event_binding",
+          "named": true
+        },
+        {
+          "type": "id_declaration",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "widget_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "event_binding",
+    "named": true,
+    "fields": {
+      "event": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "handler": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "property_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "id_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "property",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "property_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "root_rule",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "event_binding",
+          "named": true
+        },
+        {
+          "type": "id_declaration",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "widget_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "class_rule",
+          "named": true
+        },
+        {
+          "type": "root_rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "widget_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "event_binding",
+          "named": true
+        },
+        {
+          "type": "id_declaration",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "widget_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "_",
+    "named": false
+  },
+  {
+    "type": "id",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
+    "type": "property_value",
+    "named": true
+  }
+]

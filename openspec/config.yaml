@@ -1,0 +1,70 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Project: tree-sitter-kivy — Tree-sitter grammar for Kivy's kvlang (.kv files)
+  Stack: JavaScript/TypeScript, Bun 1.3.14, TypeScript 5.x (strict mode)
+  Package manager: Bun (bun.lock)
+  Runtime: Bun (not Node.js)
+  Status: Scaffold only — bun init + tree-sitter-cli 0.26.10 as dev dependency.
+          No grammar.js, no parser scaffold, no tests yet.
+  Conventions: Bun defaults (TypeScript with strict mode, bundler module resolution,
+               verbatimModuleSyntax, noEmit). No ESLint, no formatter configured.
+  Git: master branch, no remote, 2 commits (init + tree-sitter dependency install).
+
+testing:
+  strict_tdd: true
+  note: "tree-sitter test CLI is installed (v0.26.10) and available, but requires a
+         compiled grammar scaffold before it can run. strict_tdd is true because
+         the test runner exists per the detection rule; first SDD change must
+         scaffold the grammar before TDD cycles are actionable."
+  runner:
+    command: tree-sitter test
+    framework: tree-sitter built-in test
+  layers:
+    unit:
+      available: false
+      tool: "— (tree-sitter test requires compiled grammar)"
+    integration:
+      available: false
+      tool: "—"
+    e2e:
+      available: false
+      tool: "—"
+  coverage:
+    available: false
+    command: "— (tree-sitter has no built-in coverage)"
+  quality:
+    linter:
+      available: false
+      command: "— (no ESLint configured)"
+    type_checker:
+      available: true
+      command: bun run tsc --noEmit
+    formatter:
+      available: false
+      command: "—"
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - First change MUST scaffold the grammar before any modifier work
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    tdd: false          # TDD inactive until grammar scaffold exists
+    test_command: tree-sitter test
+  verify:
+    test_command: tree-sitter test
+    build_command: tree-sitter build --wasm
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

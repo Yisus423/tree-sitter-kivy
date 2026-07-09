@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "name": "tree-sitter-kivy",
+    "version": "0.1.0",
+    "description": "Tree-sitter grammar for Kivy's KV language (kvlang)",
+    "license": "MIT",
+    "authors": []
+  },
+  "grammars": [
+    {
+      "name": "kivy",
+      "scope": "source.kv",
+      "file-types": ["kv"],
+      "highlights": ["queries/highlights.scm"],
+      "injection-regex": "kv"
+    }
+  ],
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  },
+  "build": {
+    "wasm": true
+  }
+}

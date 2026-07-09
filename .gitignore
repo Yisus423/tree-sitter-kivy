@@ -32,3 +32,10 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# tree-sitter compiled binaries
+*.so
+*.o
+
+# opencode internal cache
+.atl/*.cache.json

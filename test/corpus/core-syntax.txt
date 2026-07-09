@@ -1,0 +1,370 @@
+==================
+Empty file
+==================
+
+---
+
+(source_file)
+
+==================
+Comment-only file
+==================
+
+# just a comment
+
+---
+
+(source_file)
+
+==================
+Root rule
+==================
+
+BoxLayout:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)))
+
+==================
+Class rule
+==================
+
+<MyButton>:
+
+---
+
+(source_file
+  (class_rule
+    name: (identifier)))
+
+==================
+Root rule missing colon — ERROR
+==================
+
+BoxLayout
+
+---
+
+(source_file
+  (ERROR
+    (identifier)))
+
+==================
+Rule body with property
+==================
+
+BoxLayout:
+    text: "Hello"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Rule body empty — header only
+==================
+
+BoxLayout:
+    
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)))
+
+==================
+Property — string value
+==================
+
+BoxLayout:
+    text: "Hello"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Event binding — on_press
+==================
+
+BoxLayout:
+    on_press: print("clicked")
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+ID declaration — bare name
+==================
+
+BoxLayout:
+    id: my_button
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (id_declaration
+      name: (identifier))))
+
+==================
+ID declaration — quoted name
+==================
+
+BoxLayout:
+    id: "my_button"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (id_declaration
+      name: (string))))
+
+==================
+Missing colon in property — ERROR
+==================
+
+BoxLayout:
+    text "Hello"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (ERROR
+      (identifier))))
+
+==================
+Child widget inside parent
+==================
+
+BoxLayout:
+    Button:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (widget_declaration
+      name: (identifier))))
+
+==================
+Nested widgets — 2 levels deep
+==================
+
+BoxLayout:
+    Button:
+        Label:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (widget_declaration
+      name: (identifier)
+      (widget_declaration
+        name: (identifier)))))
+
+==================
+Comments inside rule body
+==================
+
+BoxLayout:
+    # a comment here
+    text: "hi"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Blank lines between declarations
+==================
+
+BoxLayout:
+    text: "a"
+
+    font_size: 14
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Blank lines between top-level rules
+==================
+
+<MyButton>:
+
+<MyLabel>:
+
+---
+
+(source_file
+  (class_rule
+    name: (identifier))
+  (class_rule
+    name: (identifier)))
+
+==================
+Windows \r\n line endings
+==================
+
+BoxLayout:
+    text: "Hello"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Mixed indent — 4 then 6 spaces
+==================
+
+BoxLayout:
+    text: "a"
+      font_size: 14
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (widget_declaration
+      name: (identifier)
+      (ERROR
+        (property_value))
+      (property
+        name: (identifier)
+        value: (property_value)))))
+
+==================
+Tab indent — 1 tab = 8 spaces
+==================
+
+BoxLayout:
+	text: "hi"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Tabs vs spaces at same level — ERROR
+==================
+
+BoxLayout:
+	text: "a"
+    color: "red"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value)))
+  (root_rule
+    name: (identifier)
+    (ERROR)))
+
+==================
+Comment at byte 0 — zero rules
+==================
+
+# comment at start of file
+
+---
+
+(source_file)
+
+==================
+Indentation bounce — 4 then 2 then 4 then 0 — ERROR
+==================
+
+BoxLayout:
+    text: "a"
+  font_size: 14
+    color: "red"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value)))
+  (root_rule
+    name: (identifier)
+    (ERROR
+      (UNEXPECTED '1'))
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+id: without value — edge case
+==================
+
+BoxLayout:
+    id:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (id_declaration
+      name: (string
+        (MISSING "string_token1")))))
