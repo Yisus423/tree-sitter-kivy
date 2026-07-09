@@ -75,7 +75,24 @@ module.exports = grammar({
       seq($._indent, repeat($._declaration), $._dedent),
     ),
 
+    _canvas_header: $ => choice('canvas.before', 'canvas.after', 'canvas'),
+
+    canvas_block: $ => seq(
+      field('name', $._canvas_header),
+      ':',
+      choice(
+        $._newline,
+        seq($._indent, repeat(choice($._declaration, $._canvas_atom)), $._dedent),
+      ),
+    ),
+
+    _canvas_atom: $ => seq(
+      choice('Clear', 'PushMatrix', 'PopMatrix'),
+      $._newline,
+    ),
+
     _declaration: $ => choice(
+      $.canvas_block,
       $.widget_declaration,
       $.event_binding,
       $.id_declaration,

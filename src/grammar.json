@@ -275,9 +275,111 @@
         }
       ]
     },
+    "_canvas_header": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "canvas.before"
+        },
+        {
+          "type": "STRING",
+          "value": "canvas.after"
+        },
+        {
+          "type": "STRING",
+          "value": "canvas"
+        }
+      ]
+    },
+    "canvas_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_canvas_header"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_indent"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "_declaration"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_canvas_atom"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_dedent"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_canvas_atom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "Clear"
+            },
+            {
+              "type": "STRING",
+              "value": "PushMatrix"
+            },
+            {
+              "type": "STRING",
+              "value": "PopMatrix"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        }
+      ]
+    },
     "_declaration": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "canvas_block"
+        },
         {
           "type": "SYMBOL",
           "name": "widget_declaration"

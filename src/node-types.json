@@ -1,5 +1,55 @@
 [
   {
+    "type": "canvas_block",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "canvas",
+            "named": false
+          },
+          {
+            "type": "canvas.after",
+            "named": false
+          },
+          {
+            "type": "canvas.before",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "canvas_block",
+          "named": true
+        },
+        {
+          "type": "event_binding",
+          "named": true
+        },
+        {
+          "type": "id_declaration",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "widget_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "class_rule",
     "named": true,
     "fields": {
@@ -18,6 +68,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "canvas_block",
+          "named": true
+        },
         {
           "type": "event_binding",
           "named": true
@@ -181,6 +235,10 @@
       "required": false,
       "types": [
         {
+          "type": "canvas_block",
+          "named": true
+        },
+        {
           "type": "event_binding",
           "named": true
         },
@@ -282,6 +340,10 @@
       "required": false,
       "types": [
         {
+          "type": "canvas_block",
+          "named": true
+        },
+        {
           "type": "event_binding",
           "named": true
         },
@@ -313,7 +375,31 @@
     "named": false
   },
   {
+    "type": "Clear",
+    "named": false
+  },
+  {
+    "type": "PopMatrix",
+    "named": false
+  },
+  {
+    "type": "PushMatrix",
+    "named": false
+  },
+  {
     "type": "_",
+    "named": false
+  },
+  {
+    "type": "canvas",
+    "named": false
+  },
+  {
+    "type": "canvas.after",
+    "named": false
+  },
+  {
+    "type": "canvas.before",
     "named": false
   },
   {
