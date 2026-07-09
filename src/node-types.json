@@ -38,6 +38,11 @@
     }
   },
   {
+    "type": "directive_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "event_binding",
     "named": true,
     "fields": {
@@ -84,6 +89,48 @@
     }
   },
   {
+    "type": "import_directive",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "module": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "directive_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "kivy_directive",
+    "named": true,
+    "fields": {
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "directive_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "property",
     "named": true,
     "fields": {
@@ -108,6 +155,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "property_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "root_rule",
@@ -148,6 +200,32 @@
     }
   },
   {
+    "type": "set_directive",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "directive_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -161,7 +239,19 @@
           "named": true
         },
         {
+          "type": "import_directive",
+          "named": true
+        },
+        {
+          "type": "kivy_directive",
+          "named": true
+        },
+        {
           "type": "root_rule",
+          "named": true
+        },
+        {
+          "type": "set_directive",
           "named": true
         }
       ]
@@ -235,11 +325,19 @@
     "named": true
   },
   {
+    "type": "import",
+    "named": false
+  },
+  {
+    "type": "kivy",
+    "named": false
+  },
+  {
     "type": "on",
     "named": false
   },
   {
-    "type": "property_value",
-    "named": true
+    "type": "set",
+    "named": false
   }
 ]

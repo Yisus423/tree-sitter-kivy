@@ -11,6 +11,7 @@ enum TokenType {
     INDENT,
     DEDENT,
     BREAK,
+    DIRECTIVE_START,
 };
 
 typedef struct {
@@ -100,6 +101,18 @@ void tree_sitter_kivy_external_scanner_deserialize(
     memcpy(&scanner->pending_col, buffer + data_size + 1, sizeof(int32_t));
 }
 
+// Consumes rest of line after '#' has been consumed by caller.
+// Returns true and consumes ':' if '#:' was found; otherwise
+// consumes rest of line and returns false.
+static bool try_directive_start(TSLexer *lexer) {
+    if (lexer->lookahead == ':') {
+        lexer->advance(lexer, false);
+        return true;
+    }
+    advance_line(lexer);
+    return false;
+}
+
 bool tree_sitter_kivy_external_scanner_scan(
     void *payload, TSLexer *lexer, const bool *valid_symbols
 ) {
@@ -142,14 +155,26 @@ bool tree_sitter_kivy_external_scanner_scan(
             lexer->advance(lexer, true);
         }
 
-        // Consume blank lines and comment lines
+        // Consume blank lines and comment/directive lines
         bool consumed = false;
         while (lexer->lookahead == '\n' || lexer->lookahead == '#') {
-            consumed = true;
             if (lexer->lookahead == '\n') {
+                consumed = true;
                 lexer->advance(lexer, true);
-            } else if (lexer->lookahead == '#') {
+                continue;
+            }
+            if (lexer->lookahead == '#') {
+                lexer->advance(lexer, false);  // consume '#'
+                if (lexer->lookahead == ':') {
+                    // We found '#:' during BREAK — emit DIRECTIVE_START
+                    lexer->advance(lexer, false);  // consume ':'
+                    lexer->result_symbol = DIRECTIVE_START;
+                    return true;
+                }
+                // Plain '#' — consume rest of line, loop continues
                 advance_line(lexer);
+                consumed = true;
+                continue;
             }
         }
 
@@ -161,6 +186,43 @@ bool tree_sitter_kivy_external_scanner_scan(
         // has optional(_break) at the end of source_file to catch it.
         lexer->result_symbol = BREAK;
         return true;
+    }
+
+    // ---------------------------------------------------------------
+    // Step 0c: Handle DIRECTIVE_START requests
+    // Only checked when DIRECTIVE_START is a valid symbol (at
+    // source_file level). Fires between BREAK detection and inline
+    // whitespace skipping. If no '#' found, fall through to the
+    // rest of the scanner so other tokens can be produced.
+    // ---------------------------------------------------------------
+    if (valid_symbols[DIRECTIVE_START]) {
+        // Skip leading whitespace before checking for '#'
+        while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+            lexer->advance(lexer, true);
+        }
+        if (lexer->lookahead == '#') {
+            lexer->advance(lexer, false);  // consume '#'
+            if (lexer->lookahead == ':') {
+                lexer->advance(lexer, false);  // consume ':'
+                lexer->result_symbol = DIRECTIVE_START;
+                return true;
+            }
+            // Plain '#' at start of line — parser was expecting
+            // directive but found plain comment. Consume rest of
+            // line and return false so parser tries other paths.
+            advance_line(lexer);
+            return false;
+        }
+        if (lexer->lookahead == ':') {
+            // '#' was already consumed by \n processing (Step 2)
+            // when it detected '#:' at column 0. Consume ':' and
+            // emit DIRECTIVE_START.
+            lexer->advance(lexer, false);
+            lexer->result_symbol = DIRECTIVE_START;
+            return true;
+        }
+        // Not '#' or ':' — fall through to other token possibilities
+        // (BREAK, NEWLINE, etc. via Steps 1-4)
     }
 
     // ---------------------------------------------------------------
@@ -204,7 +266,21 @@ bool tree_sitter_kivy_external_scanner_scan(
                     lexer->advance(lexer, true);
                 }
             } else if (lexer->lookahead == '#') {
-                advance_line(lexer);
+                lexer->advance(lexer, false);  // consume '#'
+                if (lexer->lookahead == ':' && col == 0) {
+                    // '#:' at column 0 during \n skip — this is a directive.
+                    // Only consume '#' (already done), leave ':' for
+                    // Step 0c on the next scanner call. The NEWLINE
+                    // will be emitted at col==0, then DIRECTIVE_START
+                    // will fire on the next scan.
+                    // Do NOT consume the ':' or the rest of the line.
+                } else if (lexer->lookahead == ':') {
+                    // '#:' inside a rule body (col > 0) — consume as comment
+                    advance_line(lexer);
+                } else {
+                    // Plain '#' — consume rest of line
+                    advance_line(lexer);
+                }
             } else if (lexer->lookahead == '\r') {
                 lexer->advance(lexer, true);
             }

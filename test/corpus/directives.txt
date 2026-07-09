@@ -1,0 +1,174 @@
+==================
+Single #:import directive
+==================
+#:import Button kivy.uix.button
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value)))
+
+==================
+Single #:set directive
+==================
+#:set root_color 1 0 0 1
+
+---
+
+(source_file
+  (set_directive
+    name: (identifier)
+    value: (directive_value)))
+
+==================
+Single #:kivy directive
+==================
+#:kivy 2.3.1
+
+---
+
+(source_file
+  (kivy_directive
+    version: (directive_value)))
+
+==================
+Multiple directives in sequence
+==================
+#:import A a.b
+#:set x 1
+#:kivy 2.0
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (set_directive
+    name: (identifier)
+    value: (directive_value))
+  (kivy_directive
+    version: (directive_value)))
+
+==================
+Directives with blank lines between them
+==================
+#:import A a.b
+
+#:set x 1
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (set_directive
+    name: (identifier)
+    value: (directive_value)))
+
+==================
+Directive immediately followed by rule (no blank line)
+==================
+#:import B b.c
+BoxLayout:
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (root_rule
+    name: (identifier)))
+
+==================
+Directive followed by blank lines then rule
+==================
+#:kivy 2.1.0
+
+BoxLayout:
+
+---
+
+(source_file
+  (kivy_directive
+    version: (directive_value))
+  (root_rule
+    name: (identifier)))
+
+==================
+File with only directives (zero rules)
+==================
+#:import A a.b
+#:set x 1
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (set_directive
+    name: (identifier)
+    value: (directive_value)))
+
+==================
+Malformed directive — unknown keyword
+==================
+#:unknown some args
+
+---
+
+(source_file
+  (ERROR
+    (UNEXPECTED 'u')))
+
+==================
+Malformed directive — #:import missing arguments
+==================
+#:import
+
+---
+
+(source_file
+  (ERROR))
+
+==================
+Malformed directive — #:set missing name
+==================
+#:set
+
+---
+
+(source_file
+  (ERROR))
+
+==================
+Plain # comment still works (backward compat)
+==================
+# just a comment
+BoxLayout:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)))
+
+==================
+#: inside rule body — no crash, consumed as content
+==================
+BoxLayout:
+    value: something #: not a directive
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))

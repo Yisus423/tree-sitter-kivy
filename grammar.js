@@ -11,13 +11,48 @@ module.exports = grammar({
     $._indent,
     $._dedent,
     $._break,
+    $._directive_start,
   ],
 
   rules: {
     source_file: $ => seq(
-      repeat(seq(optional($._break), $._rule)),
+      repeat(choice(
+        $._directive,
+        seq(optional($._break), $._rule),
+      )),
       optional($._break),
     ),
+
+    _directive: $ => choice(
+      $.import_directive,
+      $.set_directive,
+      $.kivy_directive,
+    ),
+
+    import_directive: $ => seq(
+      $._directive_start,
+      'import',
+      field('alias', $.identifier),
+      field('module', $.directive_value),
+      $._newline,
+    ),
+
+    set_directive: $ => seq(
+      $._directive_start,
+      'set',
+      field('name', $.identifier),
+      field('value', $.directive_value),
+      $._newline,
+    ),
+
+    kivy_directive: $ => seq(
+      $._directive_start,
+      'kivy',
+      field('version', $.directive_value),
+      $._newline,
+    ),
+
+    directive_value: $ => token.immediate(/[^\n\r]+/),
 
     _rule: $ => choice($.root_rule, $.class_rule),
 
