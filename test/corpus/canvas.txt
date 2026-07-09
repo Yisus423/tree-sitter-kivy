@@ -1,0 +1,156 @@
+====================
+Empty canvas block
+====================
+
+BoxLayout:
+    canvas:
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block)))
+
+====================
+Canvas with body instructions (Color + Rectangle)
+====================
+
+BoxLayout:
+    canvas:
+        Color:
+            rgba: (1, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value)))
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value))
+        (property
+          name: (identifier)
+          value: (property_value))))))
+
+====================
+canvas.before block
+====================
+
+BoxLayout:
+    canvas.before:
+        Color:
+            rgba: (1, 0, 0, 1)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value))))))
+
+====================
+canvas.after block
+====================
+
+BoxLayout:
+    canvas.after:
+        Color:
+            rgba: (1, 0, 0, 1)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value))))))
+
+====================
+No-body canvas instructions (Clear, PushMatrix, PopMatrix)
+====================
+
+BoxLayout:
+    canvas:
+        Clear
+        PushMatrix
+        PopMatrix
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block)))
+
+====================
+Mixed content — atoms plus instructions and properties
+====================
+
+BoxLayout:
+    canvas:
+        Clear
+        Color:
+            rgba: (1, 0, 0, 1)
+        PushMatrix
+        Rectangle:
+            pos: self.pos
+            size: self.size
+        PopMatrix
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value)))
+      (widget_declaration
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value))
+        (property
+          name: (identifier)
+          value: (property_value))))))
+
+====================
+Backward compat — non-canvas color: as property
+====================
+
+BoxLayout:
+    color: (1, 0, 0, 1)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
