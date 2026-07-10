@@ -368,3 +368,42 @@ BoxLayout:
     (id_declaration
       name: (string
         (MISSING "string_token1")))))
+
+==================
+Dynamic class rule — single base
+==================
+
+<CustomButton@Button>:
+
+---
+
+(source_file
+  (class_rule
+    name: (identifier)
+    base: (identifier)))
+
+==================
+Dynamic class rule — multiple bases
+==================
+
+<NewWidget@Behavior+Label>:
+
+---
+
+(source_file
+  (class_rule
+    name: (identifier)
+    base: (identifier)
+    base: (identifier)))
+
+==================
+Dynamic class rule — missing name (ERROR)
+==================
+
+<@Button>:
+
+---
+
+(source_file
+  (class_rule
+    base: (identifier)))

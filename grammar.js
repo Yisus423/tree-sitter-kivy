@@ -64,7 +64,9 @@ module.exports = grammar({
 
     class_rule: $ => seq(
       '<',
-      field('name', $.identifier),
+      field('name', optional($.identifier)),
+      optional(seq('@', field('base', $.identifier),
+        repeat(seq('+', field('base', $.identifier))))),
       '>',
       ':',
       optional($._rule_body),

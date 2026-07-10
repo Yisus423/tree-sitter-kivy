@@ -53,9 +53,19 @@
     "type": "class_rule",
     "named": true,
     "fields": {
+      "base": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -363,6 +373,10 @@
     }
   },
   {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -372,6 +386,10 @@
   },
   {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
