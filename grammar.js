@@ -14,6 +14,10 @@ module.exports = grammar({
     $._directive_start,
   ],
 
+  conflicts: $ => [
+    [$._tuple_elements],
+  ],
+
   rules: {
     source_file: $ => seq(
       repeat(choice(
@@ -135,7 +139,61 @@ module.exports = grammar({
       optional($._newline),
     ),
 
-    property_value: $ => token.immediate(/[^\n\r]+/),
+    property_value: $ => seq(
+      choice(
+        $.string,
+        $.number,
+        $.boolean,
+        $._none,
+        $.tuple,
+        $.dotted_ref,
+        $.identifier,
+      ),
+      optional($._raw_value),
+    ),
+
+    number: $ => token(seq(
+      optional('-'),
+      choice(
+        seq(/[0-9]+/, '.', /[0-9]+/),
+        /[0-9]+/,
+        seq('.', /[0-9]+/),
+      ),
+    )),
+
+    boolean: $ => token(choice('True', 'False')),
+
+    _none: $ => token('None'),
+
+    dotted_ref: $ => token(seq(
+      /[a-zA-Z_]\w*/,
+      '.',
+      /[a-zA-Z_]\w*/,
+      repeat(seq('.', /[a-zA-Z_]\w*/)),
+    )),
+
+    _typed_value: $ => choice(
+      $.string,
+      $.number,
+      $.boolean,
+      $._none,
+      $.tuple,
+      $.identifier,
+    ),
+
+    _tuple_elements: $ => seq(
+      $._typed_value,
+      optional(seq(',', optional($._tuple_elements))),
+    ),
+
+    tuple: $ => seq(
+      '(',
+      optional($._tuple_elements),
+      optional(','),
+      ')',
+    ),
+
+    _raw_value: $ => token(/[^\n\r]+/),
 
     identifier: $ => /[a-zA-Z_]\w*/,
 

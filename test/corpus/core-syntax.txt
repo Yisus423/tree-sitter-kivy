@@ -66,7 +66,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Rule body empty — header only
@@ -95,7 +96,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Event binding — on_press
@@ -111,7 +113,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (identifier)))))
 
 ==================
 ID declaration — bare name
@@ -206,7 +209,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Blank lines between declarations
@@ -224,10 +228,12 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))
+      value: (property_value
+        (string)))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (number)))))
 
 ==================
 Blank lines between top-level rules
@@ -259,7 +265,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Mixed indent — 4 then 6 spaces
@@ -277,10 +284,11 @@ BoxLayout:
     (widget_declaration
       name: (identifier)
       (ERROR
-        (property_value))
+        (string))
       (property
         name: (identifier)
-        value: (property_value)))))
+        value: (property_value
+          (number))))))
 
 ==================
 Tab indent — 1 tab = 8 spaces
@@ -296,7 +304,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Tabs vs spaces at same level — ERROR
@@ -313,7 +322,8 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (property_value
+        (string))))
   (root_rule
     name: (identifier)
     (ERROR)))
@@ -344,14 +354,16 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (property_value
+        (string))))
   (root_rule
     name: (identifier)
     (ERROR
-      (UNEXPECTED '1'))
+      (number))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 id: without value — edge case
@@ -432,7 +444,8 @@ Global rule — with body
   (class_rule
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Negated class rule — no body
@@ -460,7 +473,8 @@ Negated class rule — with body
     negated: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (string)))))
 
 ==================
 Negated class rule with base — ERROR
@@ -475,3 +489,250 @@ Negated class rule with base — ERROR
     (ERROR
       (identifier))
     base: (identifier)))
+
+==================
+Number — integer
+==================
+
+BoxLayout:
+    font_size: 42
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))))
+
+==================
+Number — float
+==================
+
+BoxLayout:
+    opacity: 0.5
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))))
+
+==================
+Number — negative
+==================
+
+BoxLayout:
+    offset: -3
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))))
+
+==================
+Boolean — True and False
+==================
+
+BoxLayout:
+    disabled: True
+    visible: False
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (boolean)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (boolean)))))
+
+==================
+None keyword
+==================
+
+BoxLayout:
+    color: None
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Bare identifier
+==================
+
+BoxLayout:
+    size_hint: size
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (identifier)))))
+
+==================
+Dotted reference — 2 parts
+==================
+
+BoxLayout:
+    pos: self.pos
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dotted_ref)))))
+
+==================
+Dotted reference — 3 parts
+==================
+
+BoxLayout:
+    origin: a.b.c
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dotted_ref)))))
+
+==================
+Tuple — empty
+==================
+
+BoxLayout:
+    nothing: ()
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple)))))
+
+==================
+Tuple — single element with trailing comma
+==================
+
+BoxLayout:
+    single: (42,)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (number))))))
+
+==================
+Tuple — multiple elements
+==================
+
+BoxLayout:
+    many: (1, 2, 3)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (number)
+          (number)
+          (number))))))
+
+==================
+Raw value — arithmetic expression
+==================
+
+BoxLayout:
+    expr: self.parent.width * 0.5
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dotted_ref)))))
+
+==================
+Raw value — function call
+==================
+
+BoxLayout:
+    action: print("clicked")
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (identifier)))))
+
+==================
+#: inside rule body — no crash, consumed as content
+==================
+
+BoxLayout:
+    #: comment here
+    text: "hi"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))))

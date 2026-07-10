@@ -171,4 +171,5 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (property_value
+        (identifier)))))

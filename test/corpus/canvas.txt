@@ -34,15 +34,22 @@ BoxLayout:
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value)))
+          value: (property_value
+            (tuple
+              (number)
+              (number)
+              (number)
+              (number)))))
       (widget_declaration
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value))
+          value: (property_value
+            (dotted_ref)))
         (property
           name: (identifier)
-          value: (property_value))))))
+          value: (property_value
+            (dotted_ref)))))))
 
 ====================
 canvas.before block
@@ -63,7 +70,12 @@ BoxLayout:
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value))))))
+          value: (property_value
+            (tuple
+              (number)
+              (number)
+              (number)
+              (number))))))))
 
 ====================
 canvas.after block
@@ -84,7 +96,12 @@ BoxLayout:
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value))))))
+          value: (property_value
+            (tuple
+              (number)
+              (number)
+              (number)
+              (number))))))))
 
 ====================
 No-body canvas instructions (Clear, PushMatrix, PopMatrix)
@@ -128,15 +145,22 @@ BoxLayout:
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value)))
+          value: (property_value
+            (tuple
+              (number)
+              (number)
+              (number)
+              (number)))))
       (widget_declaration
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value))
+          value: (property_value
+            (dotted_ref)))
         (property
           name: (identifier)
-          value: (property_value))))))
+          value: (property_value
+            (dotted_ref)))))))
 
 ====================
 Backward compat — non-canvas color: as property
@@ -152,5 +176,9 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
-
+      value: (property_value
+        (tuple
+          (number)
+          (number)
+          (number)
+          (number))))))
