@@ -407,3 +407,71 @@ Dynamic class rule — missing name (ERROR)
 (source_file
   (class_rule
     base: (identifier)))
+
+==================
+Global rule — no body
+==================
+
+<>:
+
+---
+
+(source_file
+  (class_rule))
+
+==================
+Global rule — with body
+==================
+
+<>:
+    text: "Hello"
+
+---
+
+(source_file
+  (class_rule
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Negated class rule — no body
+==================
+
+<-Button>:
+
+---
+
+(source_file
+  (class_rule
+    negated: (identifier)))
+
+==================
+Negated class rule — with body
+==================
+
+<-Button>:
+    text: "Hello"
+
+---
+
+(source_file
+  (class_rule
+    negated: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value))))
+
+==================
+Negated class rule with base — ERROR
+==================
+
+<-Name@Base>:
+
+---
+
+(source_file
+  (class_rule
+    (ERROR
+      (identifier))
+    base: (identifier)))
