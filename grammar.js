@@ -104,8 +104,8 @@ module.exports = grammar({
 
     _declaration: $ => choice(
       $.canvas_block,
-      $.widget_declaration,
       $.event_binding,
+      $.widget_declaration,
       $.id_declaration,
       $.property,
     ),
@@ -124,13 +124,13 @@ module.exports = grammar({
     ),
 
     event_binding: $ => seq(
-      'on',
-      '_',
-      field('event', $.identifier),
+      field('event', $.event_name),
       ':',
       field('handler', $.property_value),
       optional($._newline),
     ),
+
+    event_name: $ => token(seq('on', '_', /[a-zA-Z_]\w*/)),
 
     id_declaration: $ => seq(
       'id',

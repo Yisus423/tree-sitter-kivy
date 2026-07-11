@@ -120,7 +120,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "event_name",
             "named": true
           }
         ]
@@ -491,10 +491,6 @@
     "named": false
   },
   {
-    "type": "_",
-    "named": false
-  },
-  {
     "type": "boolean",
     "named": true
   },
@@ -519,6 +515,10 @@
     "named": true
   },
   {
+    "type": "event_name",
+    "named": true
+  },
+  {
     "type": "id",
     "named": false
   },
@@ -537,10 +537,6 @@
   {
     "type": "number",
     "named": true
-  },
-  {
-    "type": "on",
-    "named": false
   },
   {
     "type": "set",

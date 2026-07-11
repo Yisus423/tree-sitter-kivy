@@ -462,11 +462,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "widget_declaration"
+          "name": "event_binding"
         },
         {
           "type": "SYMBOL",
-          "name": "event_binding"
+          "name": "widget_declaration"
         },
         {
           "type": "SYMBOL",
@@ -569,19 +569,11 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "on"
-        },
-        {
-          "type": "STRING",
-          "value": "_"
-        },
-        {
           "type": "FIELD",
           "name": "event",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "event_name"
           }
         },
         {
@@ -609,6 +601,26 @@
           ]
         }
       ]
+    },
+    "event_name": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "on"
+          },
+          {
+            "type": "STRING",
+            "value": "_"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[a-zA-Z_]\\w*"
+          }
+        ]
+      }
     },
     "id_declaration": {
       "type": "SEQ",

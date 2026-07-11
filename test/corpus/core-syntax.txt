@@ -111,10 +111,44 @@ BoxLayout:
 (source_file
   (root_rule
     name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (property_value
+        (identifier)))))
+
+==================
+Event binding — with underscore in name
+==================
+
+BoxLayout:
+    on_touch_down: root.handler()
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (property_value
+        (dotted_ref)))))
+
+==================
+Property starting with on but not binding (no _ after on)
+==================
+
+BoxLayout:
+    ontarget: 42
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
     (property
       name: (identifier)
       value: (property_value
-        (identifier)))))
+        (number)))))
 
 ==================
 ID declaration — bare name
