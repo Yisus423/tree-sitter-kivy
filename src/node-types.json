@@ -112,6 +112,64 @@
     }
   },
   {
+    "type": "dict_value",
+    "named": true,
+    "fields": {
+      "key": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "None",
+            "named": false
+          },
+          {
+            "type": "boolean",
+            "named": true
+          },
+          {
+            "type": "dict_value",
+            "named": true
+          },
+          {
+            "type": "dotted_ref",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "list_value",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "tuple",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "event_binding",
     "named": true,
     "fields": {
@@ -212,6 +270,10 @@
           "named": true
         },
         {
+          "type": "dict_value",
+          "named": true
+        },
+        {
           "type": "dotted_ref",
           "named": true
         },
@@ -274,6 +336,10 @@
       "types": [
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "dict_value",
           "named": true
         },
         {
@@ -418,6 +484,10 @@
       "types": [
         {
           "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "dict_value",
           "named": true
         },
         {
@@ -599,6 +669,14 @@
   },
   {
     "type": "set",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   }
 ]

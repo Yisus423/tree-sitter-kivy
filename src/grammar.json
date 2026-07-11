@@ -696,6 +696,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "dict_value"
+            },
+            {
+              "type": "SYMBOL",
               "name": "dotted_ref"
             },
             {
@@ -865,11 +869,115 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dict_value"
+        },
+        {
+          "type": "SYMBOL",
           "name": "dotted_ref"
         },
         {
           "type": "SYMBOL",
           "name": "identifier"
+        }
+      ]
+    },
+    "_dict_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "key",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_typed_value"
+          }
+        }
+      ]
+    },
+    "_dict_entries": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_dict_entry"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_dict_entries"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "dict_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_dict_entries"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
         }
       ]
     },
@@ -1060,6 +1168,9 @@
     ],
     [
       "_list_elements"
+    ],
+    [
+      "_dict_entries"
     ]
   ],
   "precedences": [],

@@ -867,3 +867,133 @@ BoxLayout:
       name: (identifier)
       value: (property_value
         (string)))))
+
+==================
+Dict — empty
+==================
+
+BoxLayout:
+    nothing: {}
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dict_value)))))
+
+==================
+Dict — simple key-value pairs
+==================
+
+BoxLayout:
+    pos_hint: {'x': 0.5, 'y': 1}
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dict_value
+          key: (string)
+          value: (number)
+          key: (string)
+          value: (number))))))
+
+==================
+Dict — trailing comma
+==================
+
+BoxLayout:
+    size_hint: {'x': 0.5, 'y': 0.5,}
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dict_value
+          key: (string)
+          value: (number)
+          key: (string)
+          value: (number))))))
+
+==================
+Dict — mixed value types
+==================
+
+BoxLayout:
+    props: {'name': "Alice", 'active': True, 'count': 42, 'ref': "none", 'data': a.b.c}
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (dict_value
+          key: (string)
+          value: (string)
+          key: (string)
+          value: (boolean)
+          key: (string)
+          value: (number)
+          key: (string)
+          value: (string)
+          key: (string)
+          value: (dotted_ref))))))
+
+==================
+Dict inside tuple
+==================
+
+BoxLayout:
+    data: ({'x': 1}, 2)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (dict_value
+            key: (string)
+            value: (number))
+          (number))))))
+
+==================
+Dict inside list
+==================
+
+BoxLayout:
+    items: [{'a': 1}, {'b': 2}]
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value
+          (dict_value
+            key: (string)
+            value: (number))
+        (dict_value
+          key: (string)
+          value: (number)))))))
