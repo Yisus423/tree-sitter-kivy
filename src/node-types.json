@@ -31,6 +31,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "event_binding",
           "named": true
         },
@@ -90,6 +94,10 @@
       "types": [
         {
           "type": "canvas_block",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -393,6 +401,10 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "event_binding",
           "named": true
         },
@@ -448,6 +460,10 @@
       "types": [
         {
           "type": "class_rule",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -538,6 +554,10 @@
       "types": [
         {
           "type": "canvas_block",
+          "named": true
+        },
+        {
+          "type": "comment",
           "named": true
         },
         {
@@ -634,6 +654,10 @@
   {
     "type": "canvas.before",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "directive_value",

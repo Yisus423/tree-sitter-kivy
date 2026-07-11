@@ -100,6 +100,20 @@ BoxLayout:
     name: (identifier)))
 
 ==================
+Plain # comment still works (backward compat)
+==================
+
+# just a comment
+BoxLayout:
+
+---
+
+(source_file
+  (comment)
+  (root_rule
+    name: (identifier)))
+
+==================
 File with only directives (zero rules)
 ==================
 #:import A a.b
@@ -145,18 +159,6 @@ Malformed directive — #:set missing name
 
 (source_file
   (ERROR))
-
-==================
-Plain # comment still works (backward compat)
-==================
-# just a comment
-BoxLayout:
-
----
-
-(source_file
-  (root_rule
-    name: (identifier)))
 
 ==================
 #: inside rule body — no crash, consumed as content

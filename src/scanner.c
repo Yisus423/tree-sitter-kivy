@@ -12,6 +12,7 @@ enum TokenType {
     DEDENT,
     BREAK,
     DIRECTIVE_START,
+    COMMENT,
 };
 
 typedef struct {
@@ -21,6 +22,7 @@ typedef struct {
 } Scanner;
 
 static void advance_line(TSLexer *lexer);
+static void consume_comment_content(TSLexer *lexer);
 static int32_t current_stack_top(Scanner *scanner);
 
 void *tree_sitter_kivy_external_scanner_create(void) {
@@ -155,7 +157,8 @@ bool tree_sitter_kivy_external_scanner_scan(
             lexer->advance(lexer, true);
         }
 
-        // Consume blank lines and comment/directive lines
+        // Consume blank lines and comments. Blank lines produce BREAK;
+        // comment lines produce COMMENT external token (consumed as extra).
         bool consumed = false;
         while (lexer->lookahead == '\n' || lexer->lookahead == '#') {
             if (lexer->lookahead == '\n') {
@@ -171,10 +174,10 @@ bool tree_sitter_kivy_external_scanner_scan(
                     lexer->result_symbol = DIRECTIVE_START;
                     return true;
                 }
-                // Plain '#' — consume rest of line, loop continues
+                // Plain '#' — consume rest of line, emit COMMENT
                 advance_line(lexer);
-                consumed = true;
-                continue;
+                lexer->result_symbol = COMMENT;
+                return true;
             }
         }
 
@@ -189,7 +192,35 @@ bool tree_sitter_kivy_external_scanner_scan(
     }
 
     // ---------------------------------------------------------------
-    // Step 0c: Handle DIRECTIVE_START requests
+    // Step 0c: Handle '#' at current position — DIRECTIVE_START or COMMENT
+    // Covers cases outside BREAK-only (Step 0b) and \n processing (Step 2),
+    // such as the very start of a file or inside a rule body after INDENT.
+    // ---------------------------------------------------------------
+    if (lexer->lookahead == '#' && (valid_symbols[DIRECTIVE_START] || valid_symbols[COMMENT])) {
+        lexer->advance(lexer, false);  // consume '#'
+        if (lexer->lookahead == ':') {
+            if (valid_symbols[DIRECTIVE_START]) {
+                // '#:' where directives are valid (top level) — emit DIRECTIVE_START
+                lexer->advance(lexer, false);  // consume ':'
+                lexer->result_symbol = DIRECTIVE_START;
+                return true;
+            }
+            // '#:' inside rule body (directives not valid) — treat as comment
+            consume_comment_content(lexer);
+            lexer->result_symbol = COMMENT;
+            return true;
+        }
+        // Plain '#' — comment content
+        if (valid_symbols[COMMENT]) {
+            consume_comment_content(lexer);
+            lexer->result_symbol = COMMENT;
+            return true;
+        }
+        return false;
+    }
+
+    // ---------------------------------------------------------------
+    // Step 0d: Handle DIRECTIVE_START requests
     // Only checked when DIRECTIVE_START is a valid symbol (at
     // source_file level). Fires between BREAK detection and inline
     // whitespace skipping. If no '#' found, fall through to the
@@ -208,9 +239,9 @@ bool tree_sitter_kivy_external_scanner_scan(
                 return true;
             }
             // Plain '#' at start of line — parser was expecting
-            // directive but found plain comment. Consume rest of
-            // line and return false so parser tries other paths.
-            advance_line(lexer);
+            // directive but found plain comment. Don't consume
+            // rest of line; '#' was already consumed for '#:' probe.
+            // The DFA won't see this '#' but will see the rest.
             return false;
         }
         if (lexer->lookahead == ':') {
@@ -252,10 +283,13 @@ bool tree_sitter_kivy_external_scanner_scan(
             lexer->advance(lexer, true);
         }
 
-        // Skip blank and comment lines (they don't change indent)
+        // Skip blank and comment lines (they don't change indent).
+        // Comment lines produce COMMENT external token (consumed as extra).
         while (lexer->lookahead == '\n' || lexer->lookahead == '#' || lexer->lookahead == '\r') {
             if (lexer->lookahead == '\n') {
-                lexer->advance(lexer, false);
+                // Blank line — advance as skipped so preceding
+                // token range doesn't include the newline
+                lexer->advance(lexer, true);
                 col = 0;
                 while (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
                     if (lexer->lookahead == '\t') {
@@ -266,21 +300,25 @@ bool tree_sitter_kivy_external_scanner_scan(
                     lexer->advance(lexer, true);
                 }
             } else if (lexer->lookahead == '#') {
-                lexer->advance(lexer, false);  // consume '#'
-                if (lexer->lookahead == ':' && col == 0) {
-                    // '#:' at column 0 during \n skip — this is a directive.
-                    // Only consume '#' (already done), leave ':' for
-                    // Step 0c on the next scanner call. The NEWLINE
-                    // will be emitted at col==0, then DIRECTIVE_START
-                    // will fire on the next scan.
-                    // Do NOT consume the ':' or the rest of the line.
-                } else if (lexer->lookahead == ':') {
-                    // '#:' inside a rule body (col > 0) — consume as comment
-                    advance_line(lexer);
-                } else {
-                    // Plain '#' — consume rest of line
-                    advance_line(lexer);
+                if (col > 0) {
+                    // Indented comment inside a potential rule body.
+                    // Don't consume '#': break out so the indent token
+                    // (INDENT/NEWLINE/DEDENT) is emitted first. The '#'
+                    // will be handled by Step 0c on the next scanner
+                    // call within the proper indented context.
+                    break;
                 }
+                // col == 0: keep current behavior for top level
+                lexer->advance(lexer, false);  // consume '#'
+                if (lexer->lookahead == ':') {
+                    // '#:' at column 0 during \n skip — this is a directive.
+                    break;
+                }
+                // Plain '#' at col 0 — consume comment content,
+                // emit COMMENT.
+                consume_comment_content(lexer);
+                lexer->result_symbol = COMMENT;
+                return true;
             } else if (lexer->lookahead == '\r') {
                 lexer->advance(lexer, true);
             }
@@ -367,15 +405,32 @@ static int32_t current_stack_top(Scanner *scanner) {
 static void advance_line(TSLexer *lexer) {
     while (lexer->lookahead != '\n' && !lexer->eof(lexer)) {
         if (lexer->lookahead == '\r') {
-            lexer->advance(lexer, true);
+            lexer->advance(lexer, false);
             if (lexer->lookahead == '\n') {
-                lexer->advance(lexer, true);
+                lexer->advance(lexer, false);
             }
             return;
         }
-        lexer->advance(lexer, true);
+        lexer->advance(lexer, false);
     }
     if (lexer->lookahead == '\n') {
-        lexer->advance(lexer, true);
+        lexer->advance(lexer, false);
     }
+}
+
+// Consume rest of comment content after '#' has been consumed.
+// The content is included in the token (advance false) so the
+// COMMENT external token has the proper byte range.
+// Unlike advance_line(), this does NOT consume the trailing \n —
+// the \n is left for Step 2's indent processing on the next call.
+static void consume_comment_content(TSLexer *lexer) {
+    while (lexer->lookahead != '\n' && !lexer->eof(lexer)) {
+        if (lexer->lookahead == '\r') {
+            lexer->advance(lexer, false);
+            // Leave any following \n for the scanner
+            return;
+        }
+        lexer->advance(lexer, false);
+    }
+    // \n or EOF is now lookahead — leave it for Step 2
 }

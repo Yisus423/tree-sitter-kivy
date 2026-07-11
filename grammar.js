@@ -12,6 +12,7 @@ module.exports = grammar({
     $._dedent,
     $._break,
     $._directive_start,
+    $.comment,
   ],
 
   conflicts: $ => [
@@ -24,6 +25,7 @@ module.exports = grammar({
     source_file: $ => seq(
       repeat(choice(
         $._directive,
+        $.comment,
         seq(optional($._break), $._rule),
       )),
       optional($._break),
@@ -105,6 +107,7 @@ module.exports = grammar({
     ),
 
     _declaration: $ => choice(
+      seq($.comment, optional($._newline)),
       $.canvas_block,
       $.event_binding,
       $.widget_declaration,
@@ -231,6 +234,8 @@ module.exports = grammar({
     ),
 
     _raw_value: $ => token(/[^\n\r]+/),
+
+    comment: $ => token(seq('#', /[^\n]*/)),
 
     identifier: $ => /[a-zA-Z_]\w*/,
 

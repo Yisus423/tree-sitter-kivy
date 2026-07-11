@@ -14,7 +14,8 @@ Comment-only file
 
 ---
 
-(source_file)
+(source_file
+  (comment))
 
 ==================
 Root rule
@@ -241,6 +242,7 @@ BoxLayout:
 (source_file
   (root_rule
     name: (identifier)
+    (comment)
     (property
       name: (identifier)
       value: (property_value
@@ -370,7 +372,8 @@ Comment at byte 0 — zero rules
 
 ---
 
-(source_file)
+(source_file
+  (comment))
 
 ==================
 Indentation bounce — 4 then 2 then 4 then 0 — ERROR
@@ -882,6 +885,7 @@ BoxLayout:
 (source_file
   (root_rule
     name: (identifier)
+    (comment)
     (property
       name: (identifier)
       value: (property_value
