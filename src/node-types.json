@@ -27,27 +27,41 @@
       "required": false,
       "types": [
         {
-          "type": "canvas_block",
+          "type": "canvas_instruction",
           "named": true
         },
         {
           "type": "comment",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "canvas_instruction",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
         {
-          "type": "event_binding",
-          "named": true
-        },
-        {
-          "type": "id_declaration",
+          "type": "comment",
           "named": true
         },
         {
           "type": "property",
-          "named": true
-        },
-        {
-          "type": "widget_declaration",
           "named": true
         }
       ]
@@ -616,19 +630,7 @@
     "named": false
   },
   {
-    "type": "Clear",
-    "named": false
-  },
-  {
     "type": "None",
-    "named": false
-  },
-  {
-    "type": "PopMatrix",
-    "named": false
-  },
-  {
-    "type": "PushMatrix",
     "named": false
   },
   {

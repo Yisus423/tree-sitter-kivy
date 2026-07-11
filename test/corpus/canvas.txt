@@ -30,7 +30,7 @@ BoxLayout:
   (root_rule
     name: (identifier)
     (canvas_block
-      (widget_declaration
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -40,7 +40,7 @@ BoxLayout:
               (number)
               (number)
               (number)))))
-      (widget_declaration
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -66,7 +66,7 @@ BoxLayout:
   (root_rule
     name: (identifier)
     (canvas_block
-      (widget_declaration
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -92,7 +92,7 @@ BoxLayout:
   (root_rule
     name: (identifier)
     (canvas_block
-      (widget_declaration
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -118,7 +118,10 @@ BoxLayout:
 (source_file
   (root_rule
     name: (identifier)
-    (canvas_block)))
+    (canvas_block
+      (canvas_instruction name: (identifier))
+      (canvas_instruction name: (identifier))
+      (canvas_instruction name: (identifier)))))
 
 ====================
 Mixed content — atoms plus instructions and properties
@@ -141,7 +144,8 @@ BoxLayout:
   (root_rule
     name: (identifier)
     (canvas_block
-      (widget_declaration
+      (canvas_instruction name: (identifier))
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -151,7 +155,8 @@ BoxLayout:
               (number)
               (number)
               (number)))))
-      (widget_declaration
+      (canvas_instruction name: (identifier))
+      (canvas_instruction
         name: (identifier)
         (property
           name: (identifier)
@@ -160,7 +165,36 @@ BoxLayout:
         (property
           name: (identifier)
           value: (property_value
-            (dotted_ref)))))))
+            (dotted_ref))))
+      (canvas_instruction name: (identifier)))))
+
+====================
+Comment before instruction inside canvas block
+====================
+
+BoxLayout:
+    canvas:
+        # setup color
+        Color:
+            rgba: (1, 0, 0, 1)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (canvas_block
+      (comment)
+      (canvas_instruction
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value
+            (tuple
+              (number)
+              (number)
+              (number)
+              (number))))))))
 
 ====================
 Backward compat — non-canvas color: as property
