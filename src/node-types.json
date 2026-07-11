@@ -200,6 +200,45 @@
     }
   },
   {
+    "type": "list_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "dotted_ref",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_value",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "property",
     "named": true,
     "fields": {
@@ -243,6 +282,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_value",
           "named": true
         },
         {
@@ -378,7 +421,15 @@
           "named": true
         },
         {
+          "type": "dotted_ref",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "list_value",
           "named": true
         },
         {
@@ -488,6 +539,14 @@
   },
   {
     "type": "PushMatrix",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {

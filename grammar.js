@@ -16,6 +16,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._tuple_elements],
+    [$._list_elements],
   ],
 
   rules: {
@@ -146,6 +147,7 @@ module.exports = grammar({
         $.boolean,
         $._none,
         $.tuple,
+        $.list_value,
         $.dotted_ref,
         $.identifier,
       ),
@@ -178,6 +180,8 @@ module.exports = grammar({
       $.boolean,
       $._none,
       $.tuple,
+      $.list_value,
+      $.dotted_ref,
       $.identifier,
     ),
 
@@ -191,6 +195,18 @@ module.exports = grammar({
       optional($._tuple_elements),
       optional(','),
       ')',
+    ),
+
+    _list_elements: $ => seq(
+      $._typed_value,
+      optional(seq(',', optional($._list_elements))),
+    ),
+
+    list_value: $ => seq(
+      '[',
+      optional($._list_elements),
+      optional(','),
+      ']',
     ),
 
     _raw_value: $ => token(/[^\n\r]+/),

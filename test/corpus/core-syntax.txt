@@ -754,6 +754,103 @@ BoxLayout:
         (identifier)))))
 
 ==================
+List — empty
+==================
+
+BoxLayout:
+    nothing: []
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value)))))
+
+==================
+List — numbers
+==================
+
+BoxLayout:
+    points: [1, 2, 3]
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value
+          (number)
+          (number)
+          (number))))))
+
+==================
+List — mixed types
+==================
+
+BoxLayout:
+    stuff: [1, 'a', True]
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value
+          (number)
+          (string)
+          (boolean))))))
+
+==================
+List — nested inside tuple
+==================
+
+BoxLayout:
+    data: ([1, 2], 3)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (list_value
+            (number)
+            (number))
+          (number))))))
+
+==================
+List — trailing comma
+==================
+
+BoxLayout:
+    items: [1, 2,]
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value
+          (number)
+          (number))))))
+
+==================
 #: inside rule body — no crash, consumed as content
 ==================
 
