@@ -720,6 +720,25 @@ BoxLayout:
           (number))))))
 
 ==================
+Tuple — with dotted refs
+==================
+
+BoxLayout:
+    value: (self.x, self.y)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (dotted_ref)
+          (dotted_ref))))))
+
+==================
 Raw value — arithmetic expression
 ==================
 
