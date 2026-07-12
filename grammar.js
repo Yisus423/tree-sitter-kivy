@@ -70,14 +70,26 @@ module.exports = grammar({
       optional($._rule_body),
     ),
 
+    class_entry: $ => choice(
+      seq(
+        field('name', $.identifier),
+        optional(seq('@', field('base', $.identifier),
+          repeat(seq('+', field('base', $.identifier))))),
+      ),
+      seq(
+        '@',
+        field('base', $.identifier),
+        repeat(seq('+', field('base', $.identifier))),
+      ),
+    ),
+
     class_rule: $ => seq(
       '<',
       choice(
         seq('-', field('negated', $.identifier)),
         seq(
-          field('name', optional($.identifier)),
-          optional(seq('@', field('base', $.identifier),
-            repeat(seq('+', field('base', $.identifier))))),
+          optional($.class_entry),
+          repeat(seq(',', $.class_entry)),
         ),
       ),
       '>',

@@ -68,7 +68,7 @@
     }
   },
   {
-    "type": "class_rule",
+    "type": "class_entry",
     "named": true,
     "fields": {
       "base": {
@@ -90,7 +90,13 @@
             "named": true
           }
         ]
-      },
+      }
+    }
+  },
+  {
+    "type": "class_rule",
+    "named": true,
+    "fields": {
       "negated": {
         "multiple": false,
         "required": false,
@@ -108,6 +114,10 @@
       "types": [
         {
           "type": "canvas_block",
+          "named": true
+        },
+        {
+          "type": "class_entry",
           "named": true
         },
         {

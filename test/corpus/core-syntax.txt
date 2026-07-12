@@ -39,7 +39,8 @@ Class rule
 
 (source_file
   (class_rule
-    name: (identifier)))
+    (class_entry
+      name: (identifier))))
 
 ==================
 Root rule missing colon — ERROR
@@ -283,9 +284,11 @@ Blank lines between top-level rules
 
 (source_file
   (class_rule
-    name: (identifier))
+    (class_entry
+      name: (identifier)))
   (class_rule
-    name: (identifier)))
+    (class_entry
+      name: (identifier))))
 
 ==================
 Windows \r\n line endings
@@ -428,8 +431,9 @@ Dynamic class rule — single base
 
 (source_file
   (class_rule
-    name: (identifier)
-    base: (identifier)))
+    (class_entry
+      name: (identifier)
+      base: (identifier))))
 
 ==================
 Dynamic class rule — multiple bases
@@ -441,9 +445,10 @@ Dynamic class rule — multiple bases
 
 (source_file
   (class_rule
-    name: (identifier)
-    base: (identifier)
-    base: (identifier)))
+    (class_entry
+      name: (identifier)
+      base: (identifier)
+      base: (identifier))))
 
 ==================
 Dynamic class rule — missing name (ERROR)
@@ -455,7 +460,8 @@ Dynamic class rule — missing name (ERROR)
 
 (source_file
   (class_rule
-    base: (identifier)))
+    (class_entry
+      base: (identifier))))
 
 ==================
 Global rule — no body
@@ -525,7 +531,109 @@ Negated class rule with base — ERROR
   (class_rule
     (ERROR
       (identifier))
-    base: (identifier)))
+    (class_entry
+      base: (identifier))))
+
+==================
+Multiclass — two entries
+==================
+
+<A, B>:
+
+---
+
+(source_file
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))))
+
+==================
+Multiclass — three entries
+==================
+
+<A, B, C>:
+
+---
+
+(source_file
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))))
+
+==================
+Multiclass — dynamic entries with bases
+==================
+
+<Custom@Button, Icon@Label>:
+
+---
+
+(source_file
+  (class_rule
+    (class_entry
+      name: (identifier)
+      base: (identifier))
+    (class_entry
+      name: (identifier)
+      base: (identifier))))
+
+==================
+Multiclass — with body
+==================
+
+<A, B>:
+    text: "Hello"
+
+---
+
+(source_file
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))))
+
+==================
+Multiclass — trailing comma ERROR
+==================
+
+<A, B, >:
+
+---
+
+(source_file
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (MISSING identifier))))
+
+==================
+Multiclass — negated within ERROR
+==================
+
+<A, -B>:
+
+---
+
+(source_file
+  (class_rule
+    (ERROR
+      (class_entry
+        name: (identifier)))
+    negated: (identifier)))
 
 ==================
 Number — integer
