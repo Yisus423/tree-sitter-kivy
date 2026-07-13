@@ -175,3 +175,65 @@ BoxLayout:
       name: (identifier)
       value: (property_value
         (identifier)))))
+
+==================
+Single #:include directive
+==================
+#:include myfile.kv
+
+---
+
+(source_file
+  (include_directive
+    path: (directive_value)))
+
+==================
+#:include with force keyword
+==================
+#:include force myfile.kv
+
+---
+
+(source_file
+  (include_directive
+    path: (directive_value)))
+
+==================
+#:include with relative path
+==================
+#:include subdir/nested/file.kv
+
+---
+
+(source_file
+  (include_directive
+    path: (directive_value)))
+
+==================
+Mixed #:include with other directives
+==================
+#:import A a.b
+#:include f.kv
+#:set x 1
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (include_directive
+    path: (directive_value))
+  (set_directive
+    name: (identifier)
+    value: (directive_value)))
+
+==================
+Malformed #:include — missing path
+==================
+#:include
+
+---
+
+(source_file
+  (ERROR))

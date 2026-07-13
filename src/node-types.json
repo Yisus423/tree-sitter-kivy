@@ -274,6 +274,22 @@
     }
   },
   {
+    "type": "include_directive",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "directive_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "kivy_directive",
     "named": true,
     "fields": {
@@ -495,6 +511,10 @@
           "named": true
         },
         {
+          "type": "include_directive",
+          "named": true
+        },
+        {
           "type": "kivy_directive",
           "named": true
         },
@@ -693,6 +713,10 @@
   },
   {
     "type": "import",
+    "named": false
+  },
+  {
+    "type": "include",
     "named": false
   },
   {

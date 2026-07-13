@@ -35,6 +35,7 @@ module.exports = grammar({
       $.import_directive,
       $.set_directive,
       $.kivy_directive,
+      $.include_directive,
     ),
 
     import_directive: $ => seq(
@@ -57,6 +58,13 @@ module.exports = grammar({
       $._directive_start,
       'kivy',
       field('version', $.directive_value),
+      $._newline,
+    ),
+
+    include_directive: $ => seq(
+      $._directive_start,
+      'include',
+      field('path', $.directive_value),
       $._newline,
     ),
 
