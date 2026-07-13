@@ -525,6 +525,10 @@
         {
           "type": "set_directive",
           "named": true
+        },
+        {
+          "type": "template_rule",
+          "named": true
         }
       ]
     }
@@ -533,6 +537,71 @@
     "type": "string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "template_entry",
+    "named": true,
+    "fields": {
+      "base": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "template_rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "canvas_block",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "event_binding",
+          "named": true
+        },
+        {
+          "type": "id_declaration",
+          "named": true
+        },
+        {
+          "type": "property",
+          "named": true
+        },
+        {
+          "type": "template_entry",
+          "named": true
+        },
+        {
+          "type": "widget_declaration",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "tuple",

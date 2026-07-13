@@ -70,7 +70,7 @@ module.exports = grammar({
 
     directive_value: $ => token.immediate(/[^\n\r]+/),
 
-    _rule: $ => choice($.root_rule, $.class_rule),
+    _rule: $ => choice($.root_rule, $.class_rule, $.template_rule),
 
     root_rule: $ => seq(
       field('name', $.identifier),
@@ -101,6 +101,20 @@ module.exports = grammar({
         ),
       ),
       '>',
+      ':',
+      optional($._rule_body),
+    ),
+
+    template_entry: $ => seq(
+      field('name', $.identifier),
+      optional(seq('@', field('base', $.identifier),
+        repeat(seq('+', field('base', $.identifier))))),
+    ),
+
+    template_rule: $ => seq(
+      '[',
+      $.template_entry,
+      ']',
       ':',
       optional($._rule_body),
     ),

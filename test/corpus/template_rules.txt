@@ -1,0 +1,141 @@
+==================
+Template rule — name only
+==================
+
+[Template]:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier))))
+
+==================
+Template rule — name with single base
+==================
+
+[Custom@Button]:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier)
+      base: (identifier))))
+
+==================
+Template rule — name with multiple bases
+==================
+
+[NewWidget@Behavior+Label]:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier)
+      base: (identifier)
+      base: (identifier))))
+
+==================
+Template rule — with body
+==================
+
+[T]:
+    text: "Hello"
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))))
+
+==================
+Template rule — no body, followed by another rule
+==================
+
+[T]:
+
+<Button>:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier)))
+  (class_rule
+    (class_entry
+      name: (identifier))))
+
+==================
+Template rule — empty brackets ERROR
+==================
+
+[]:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (MISSING identifier))))
+
+==================
+Template rule — @ only before name ERROR
+==================
+
+[@Button]:
+
+---
+
+(source_file
+  (ERROR
+    (UNEXPECTED 'B')))
+
+==================
+Template rule — with child widget in body
+==================
+
+[T]:
+    Button:
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier))
+    (widget_declaration
+      name: (identifier))))
+
+==================
+Template rule — with canvas block in body
+==================
+
+[T]:
+    canvas:
+        Color:
+            rgb: 1, 0, 0
+
+---
+
+(source_file
+  (template_rule
+    (template_entry
+      name: (identifier))
+    (canvas_block
+      (canvas_instruction
+        name: (identifier)
+        (property
+          name: (identifier)
+          value: (property_value
+            (number)))))))
