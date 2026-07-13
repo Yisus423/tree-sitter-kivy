@@ -46,9 +46,9 @@
 ; Phase 1.3: Rules and widget layer
 ;----------------------------------------------------------------------
 
-; Root rule — name → @type
+; Root rule — name → @function (matches kivy.vim convention)
 (root_rule
-  name: (identifier) @type)
+  name: (identifier) @function)
 
 ; Class rule — entry name → @type.definition, base → @type, negated → @type
 (class_entry
@@ -64,9 +64,9 @@
 (template_entry
   base: (identifier) @type)
 
-; Widget declaration — name → @type
+; Widget declaration — name → @function (matches kivy.vim convention)
 (widget_declaration
-  name: (identifier) @type)
+  name: (identifier) @function)
 
 ; Property — name → @property
 (property
@@ -79,9 +79,9 @@
 ; Canvas block headers
 ["canvas" "canvas.before" "canvas.after"] @keyword
 
-; Canvas instruction — name → @type
+; Canvas instruction — name → @keyword.function (matches kivy.vim's Statement)
 (canvas_instruction
-  name: (identifier) @type)
+  name: (identifier) @keyword.function)
 
 ; Event binding — event name → @attribute
 (event_binding
@@ -97,9 +97,14 @@
 ; Phase 1.5: Values and identifiers
 ;----------------------------------------------------------------------
 
-; Id declaration — name → @variable (identifier) or @string (string)
+; Kivy built-in references — self, root, app
+; Uses built-in #any-of? predicate (NOT Lua-specific — works in all tree-sitter impls)
+(identifier) @variable.builtin
+(#any-of? @variable.builtin "self" "root" "app")
+
+; Id declaration — name → @variable.special or @string
 (id_declaration
-  name: (identifier) @variable)
+  name: (identifier) @variable.special)
 (id_declaration
   name: (string) @string)
 
