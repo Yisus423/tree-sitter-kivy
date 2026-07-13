@@ -1,0 +1,210 @@
+==================
+Kitchen sink — all features combined
+==================
+#:import Button kivy.uix.button
+#:set bg_color (0.2, 0.3, 0.4, 1)
+#:kivy 2.0
+#:include constants.kv
+
+# Main application window
+<MainWindow>:
+    # this rule controls the main layout
+    id: main_win
+    text: "Hello World"
+    font_size: 14
+    opacity: 0.5
+    offset: -3
+    disabled: True
+    color: None
+    size_hint: size
+    pos: self.pos
+    on_press: root.handle_click
+    expr: self.parent.width * 0.5
+
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: (1, 0, 0, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        canvas.before:
+            Clear:
+        Label:
+            id: title_label
+            text: "Title"
+
+<PrimaryBtn@Button>:
+    font_size: 18
+
+<>:
+    color: (1, 1, 0, 1)
+
+<-InertBox>:
+    opacity: 0.3
+
+<A, B>:
+    size_hint: (0.5, 1)
+
+[ListItem@BoxLayout]:
+    orientation: 'horizontal'
+    height: 48
+    pos_hint: {'x': 0.5, 'y': 1.0}
+    values: [1, 2, 3]
+
+---
+
+(source_file
+  (import_directive
+    alias: (identifier)
+    module: (directive_value))
+  (set_directive
+    name: (identifier)
+    value: (directive_value))
+  (kivy_directive
+    version: (directive_value))
+  (include_directive
+    path: (directive_value)
+    (MISSING _newline))
+  (comment)
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (comment)
+    (id_declaration
+      name: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (boolean)))
+    (property
+      name: (identifier)
+      value: (property_value))
+    (property
+      name: (identifier)
+      value: (property_value
+        (identifier)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (dotted_ref)))
+    (event_binding
+      event: (event_name)
+      handler: (property_value
+        (dotted_ref)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (dotted_ref)))
+    (widget_declaration
+      name: (identifier)
+      (canvas_block
+        (canvas_instruction
+          name: (identifier)
+          (property
+            name: (identifier)
+            value: (property_value
+              (tuple
+                (number)
+                (number)
+                (number)
+                (number)))))
+        (canvas_instruction
+          name: (identifier)
+          (property
+            name: (identifier)
+            value: (property_value
+              (dotted_ref)))
+          (property
+            name: (identifier)
+            value: (property_value
+              (dotted_ref)))))
+      (canvas_block
+        (canvas_instruction
+          name: (identifier)
+          (MISSING _newline)))
+      (widget_declaration
+        name: (identifier)
+        (id_declaration
+          name: (identifier))
+        (property
+          name: (identifier)
+          value: (property_value
+            (string))))))
+  (class_rule
+    (class_entry
+      name: (identifier)
+      base: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (number))))
+  (class_rule
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (number)
+          (number)
+          (number)
+          (number)))))
+  (class_rule
+    negated: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (number))))
+  (class_rule
+    (class_entry
+      name: (identifier))
+    (class_entry
+      name: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (tuple
+          (number)
+          (number)))))
+  (template_rule
+    (template_entry
+      name: (identifier)
+      base: (identifier))
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (number)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (dict_value
+          key: (string)
+          value: (number)
+          key: (string)
+          value: (number))))
+    (property
+      name: (identifier)
+      value: (property_value
+        (list_value
+          (number)
+          (number)
+          (number))))))
