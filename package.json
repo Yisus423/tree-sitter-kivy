@@ -2,6 +2,10 @@
   "name": "tree-sitter-kivy",
   "module": "index.ts",
   "private": true,
+  "scripts": {
+    "test": "npx tree-sitter test",
+    "test:e2e": "node test/e2e/verify.mjs"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "tree-sitter-cli": "^0.26.10"

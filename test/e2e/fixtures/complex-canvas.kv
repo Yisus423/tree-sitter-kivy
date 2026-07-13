@@ -1,0 +1,71 @@
+#:kivy 2.0
+#:import hex kivy.utils.get_color_from_hex
+
+<GradientButton@Button>:
+    # Custom button with hover effect
+    size_hint: (0.4, 0.08)
+    on_press: root.toggle_active()
+    canvas:
+        Color:
+            rgba: (0.3, 0.6, 0.9, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: (8,)
+        Color:
+            rgba: (1, 1, 1, 0.2)
+        Line:
+            rounded_rectangle: self.x + 2 + self.y + 2 + self.width - 4 + self.height - 4 + 6
+            width: 1.5
+
+<Dashboard>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        canvas:
+            Color:
+                rgba: hex('#1a1a2e')
+            Rectangle:
+                size: self.size
+                pos: (0, 0)
+
+        Label:
+            id: header
+            text: "Dashboard"
+            font_size: 32
+            bold: True
+            color: (1, 1, 1, 1)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.3)
+
+            canvas.before:
+                Color:
+                    rgba: (0.2, 0.2, 0.4, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: (12, 12, 12, 12)
+
+            Label:
+                text: "CPU: 45%"
+                font_size: 18
+                color: (0.5, 1, 0.5, 1)
+            Label:
+                text: "MEM: 2.1GB"
+                font_size: 18
+                color: (1, 1, 0.5, 1)
+            Label:
+                text: "NET: 1.2MB/s"
+                font_size: 18
+                color: (0.5, 0.8, 1, 1)
+
+        Widget:
+            size_hint: (1, 0.02)
+
+        GradientButton:
+            text: "Refresh"
+            pos_hint: {'center_x': 0.5}
