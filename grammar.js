@@ -195,6 +195,7 @@ module.exports = grammar({
         $.dict_value,
         $.dotted_ref,
         $.identifier,
+        $.raw_value,
       ),
       optional($._raw_value),
     ),
@@ -272,6 +273,10 @@ module.exports = grammar({
       optional(','),
       ']',
     ),
+
+    raw_value: $ => $._paren_token,
+
+    _paren_token: $ => token(seq('(', /[^,)\n\r]+/, ')')),
 
     _raw_value: $ => token(/[^\n\r]+/),
 

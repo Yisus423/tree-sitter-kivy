@@ -989,6 +989,10 @@
             {
               "type": "SYMBOL",
               "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "raw_value"
             }
           ]
         },
@@ -1414,6 +1418,30 @@
           "value": "]"
         }
       ]
+    },
+    "raw_value": {
+      "type": "SYMBOL",
+      "name": "_paren_token"
+    },
+    "_paren_token": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^,)\\n\\r]+"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          }
+        ]
+      }
     },
     "_raw_value": {
       "type": "TOKEN",

@@ -407,6 +407,10 @@
           "named": true
         },
         {
+          "type": "raw_value",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -416,6 +420,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "raw_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "root_rule",

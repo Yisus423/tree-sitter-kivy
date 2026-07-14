@@ -65,7 +65,7 @@ Rule header + INDENT MUST produce a `block` child closed by matching DEDENT. Emp
 ### Requirement: Declaration Lines
 
 A declaration MUST be property (`identifier: <property_value>`), event binding (`on_identifier: raw_text`), ID (`id: name`), or canvas block (`canvas:`, `canvas.before:`, `canvas.after:`). ID value MUST be a bare identifier or quoted string. Property values MUST be one of: string, number, boolean, `None`, bare identifier, dotted reference, parenthesized tuple, or catch-all raw value.
-(Previously: property values were flat `token.immediate(/[^\n\r]+/)` raw text; now structured `choice()` of typed child nodes)
+(Previously: property values were flat `token.immediate(/[^\n\r]+/)` raw text; now structured `choice()` of typed child nodes. `_raw_value` renamed to `raw_value`; `(`-starting expressions now parse via `raw_value` catch-all instead of ERROR)
 
 | GIVEN | Expectation |
 |-------|-------------|
@@ -80,7 +80,8 @@ A declaration MUST be property (`identifier: <property_value>`), event binding (
 | `pos: self.center_x` | property node: key "pos", value `dotted_ref` child `self.center_x` |
 | `size: (100, 200)` | property node: key "size", value `tuple` child with elements 100, 200 |
 | `size: (100,)` | property node: key "size", value `tuple` child with trailing comma |
-| `font_size: self.parent.width * 0.5` | property node: key "font_size", value `_raw_value` child (expression falls to catch-all) |
+| `font_size: self.parent.width * 0.5` | property node: key "font_size", value `raw_value` child (expression falls to catch-all) |
+| `size_hint: (root.x + root.y)` | property node: key "size_hint", value `raw_value` child (expression starting with `(` falls to catch-all) |
 | `on_press: print("clicked")` | event_binding: event "press" |
 | `id: my_button` | id_declaration: value "my_button" |
 | `id: "my_button"` | id_declaration: value "my_button" |

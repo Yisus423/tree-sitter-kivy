@@ -884,6 +884,23 @@ BoxLayout:
         (identifier)))))
 
 ==================
+Raw value — parenthesized expression (catch-all)
+==================
+
+BoxLayout:
+    size_hint: (root.x + root.y)
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (property
+      name: (identifier)
+      value: (property_value
+        (raw_value)))))
+
+==================
 List — empty
 ==================
 
