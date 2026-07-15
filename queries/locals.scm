@@ -56,8 +56,4 @@
 (canvas_instruction
   name: (identifier) @local.reference)
 
-; Event handler → reference (function/method being referenced)
-(event_binding
-  handler: (property_value (identifier) @local.reference))
-(event_binding
-  handler: (property_value (dotted_ref) @local.reference))
+; Event handler — now raw text in property_value; handled by Python injection

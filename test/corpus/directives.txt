@@ -173,8 +173,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value
-        (identifier)))))
+      value: (property_value))))
 
 ==================
 Single #:include directive

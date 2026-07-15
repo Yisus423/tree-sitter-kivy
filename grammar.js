@@ -15,11 +15,7 @@ module.exports = grammar({
     $.comment,
   ],
 
-  conflicts: $ => [
-    [$._tuple_elements],
-    [$._list_elements],
-    [$._dict_entries],
-  ],
+  conflicts: $ => [],
 
   rules: {
     source_file: $ => seq(
@@ -201,101 +197,7 @@ module.exports = grammar({
       optional($._newline),
     ),
 
-    property_value: $ => seq(
-      choice(
-        $.string,
-        $.number,
-        $.boolean,
-        $._none,
-        $.tuple,
-        $.list_value,
-        $.dict_value,
-        $.dotted_ref,
-        $.identifier,
-        $.raw_value,
-      ),
-      optional($._raw_value),
-    ),
-
-    number: $ => token(seq(
-      optional('-'),
-      choice(
-        seq(/[0-9]+/, '.', /[0-9]+/),
-        /[0-9]+/,
-        seq('.', /[0-9]+/),
-      ),
-    )),
-
-    boolean: $ => token(choice('True', 'False')),
-
-    _none: $ => token('None'),
-
-    dotted_ref: $ => token(seq(
-      /[a-zA-Z_]\w*/,
-      '.',
-      /[a-zA-Z_]\w*/,
-      repeat(seq('.', /[a-zA-Z_]\w*/)),
-    )),
-
-    _typed_value: $ => choice(
-      $.string,
-      $.number,
-      $.boolean,
-      $._none,
-      $.tuple,
-      $.list_value,
-      $.dict_value,
-      $.dotted_ref,
-      $.identifier,
-    ),
-
-    _dict_entry: $ => seq(
-      field('key', $.string),
-      ':',
-      field('value', $._typed_value),
-    ),
-
-    _dict_entries: $ => seq(
-      $._dict_entry,
-      optional(seq(',', optional($._dict_entries))),
-    ),
-
-    dict_value: $ => seq(
-      '{',
-      optional($._dict_entries),
-      optional(','),
-      '}',
-    ),
-
-    _tuple_elements: $ => seq(
-      $._typed_value,
-      optional(seq(',', optional($._tuple_elements))),
-    ),
-
-    tuple: $ => seq(
-      '(',
-      optional($._tuple_elements),
-      optional(','),
-      ')',
-    ),
-
-    _list_elements: $ => seq(
-      $._typed_value,
-      optional(seq(',', optional($._list_elements))),
-    ),
-
-    list_value: $ => seq(
-      '[',
-      optional($._list_elements),
-      optional(','),
-      ']',
-    ),
-
-    raw_value: $ => $._paren_token,
-
-    _paren_token: $ => token(seq('(', /[^,)\n\r]+/, ')')),
-
-    _raw_value: $ => token(/[^\n\r]+/),
+    property_value: $ => token(/[^\n\r]+/),
 
     comment: $ => token(seq('#', /[^\n]*/)),
 

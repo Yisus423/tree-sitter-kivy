@@ -6,14 +6,11 @@
 ; Per design: Pure S-expressions, no predicates, for cross-editor portability.
 
 ;----------------------------------------------------------------------
-; Phase 1.1: Core structure — comments, strings, numbers, booleans, None
+; Phase 1.1: Core structure — comments, strings
 ;----------------------------------------------------------------------
 
 (comment) @comment @spell
 (string) @string
-(number) @number
-(boolean) @boolean
-["None"] @constant.builtin
 
 ;----------------------------------------------------------------------
 ; Phase 1.2: Directives — import, set, kivy, include
@@ -87,11 +84,7 @@
 (event_binding
   event: (event_name) @attribute)
 
-; Event binding — handler: identifier → @function, dotted_ref → @function.method
-(event_binding
-  handler: (property_value (identifier) @function))
-(event_binding
-  handler: (property_value (dotted_ref) @function.method))
+; Event binding — handler catches property_value (now raw text, handled by Python injection)
 
 ;----------------------------------------------------------------------
 ; Phase 1.5: Values and identifiers
@@ -108,21 +101,16 @@
 (id_declaration
   name: (string) @string)
 
-; Property values — dotted_ref → @variable.member, identifier → @variable
-(property
-  value: (property_value (dotted_ref) @variable.member))
-(property
-  value: (property_value (identifier) @variable))
+; Property values — now raw text, handled by Python injection
 
-; Punctuation
-["(" ")" "[" "]" "{" "}" "<" ">"] @punctuation.bracket
+; Punctuation — brackets that still exist in grammar
+; ( ) { } were removed with tuple/dict_value/rules
+; [ ] < > remain as anonymous tokens in template/class rules
+["[" "]" "<" ">"] @punctuation.bracket
 [":" ","] @punctuation.delimiter
 
 ; Operators
 ["@" "+" "-"] @operator
-
-; Dotted references (general — after parent-context to avoid overlap)
-(dotted_ref) @variable.member
 
 ; Catch-all identifier — MUST be last so specific parent-context captures win
 (identifier) @variable
