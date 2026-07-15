@@ -13,6 +13,7 @@
 (template_rule) @local.scope
 (widget_declaration) @local.scope
 (canvas_block) @local.scope
+(event_body) @local.scope
 
 ;----------------------------------------------------------------------
 ; Phase 2.2: Definition captures

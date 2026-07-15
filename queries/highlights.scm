@@ -84,6 +84,10 @@
 (event_binding
   event: (event_name) @attribute)
 
+; Event statement — Python code line inside multiline event body
+; (content highlighted via Python injection in injections.scm)
+(event_statement) @embedded
+
 ; Event binding — handler catches property_value (now raw text, handled by Python injection)
 
 ;----------------------------------------------------------------------

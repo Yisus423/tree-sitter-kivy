@@ -8,3 +8,9 @@
 ((property_value) @injection.content
  (#set! injection.language "python")
  (#set! injection.include-children))
+
+; Event body — multiline Python statements inside event bindings
+; include-children ensures each event_statement line is included
+((event_body) @injection.content
+ (#set! injection.language "python")
+ (#set! injection.include-children))
