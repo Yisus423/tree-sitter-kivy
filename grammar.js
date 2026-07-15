@@ -3,6 +3,7 @@
 
 module.exports = grammar({
   name: 'kivy',
+  word: $ => $.identifier,
 
   extras: $ => [/[ \t]/],
 

@@ -614,10 +614,9 @@ Negated class rule with base — ERROR
 
 (source_file
   (class_rule
+    negated: (identifier)
     (ERROR
-      (identifier))
-    (class_entry
-      base: (identifier))))
+      (identifier))))
 
 ==================
 Multiclass — two entries
@@ -714,10 +713,11 @@ Multiclass — negated within ERROR
 
 (source_file
   (class_rule
-    (ERROR
-      (class_entry
-        name: (identifier)))
-    negated: (identifier)))
+    (class_entry
+      name: (identifier))
+    (ERROR)
+    (class_entry
+      name: (identifier))))
 
 ==================
 Number — integer

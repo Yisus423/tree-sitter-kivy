@@ -97,8 +97,10 @@ Template rule — @ only before name ERROR
 ---
 
 (source_file
-  (ERROR
-    (UNEXPECTED 'B')))
+  (template_rule
+    (ERROR)
+    (template_entry
+      name: (identifier))))
 
 ==================
 Template rule — with child widget in body

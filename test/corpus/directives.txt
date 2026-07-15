@@ -138,7 +138,9 @@ Malformed directive — unknown keyword
 
 (source_file
   (ERROR
-    (UNEXPECTED 'u')))
+    (identifier)
+    (identifier)
+    (identifier)))
 
 ==================
 Malformed directive — #:import missing arguments
