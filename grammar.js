@@ -171,7 +171,24 @@ module.exports = grammar({
     event_binding: $ => seq(
       field('event', $.event_name),
       ':',
-      field('handler', $.property_value),
+      choice(
+        field('handler', $.property_value),
+        field('handler', $.event_body),
+      ),
+      optional($._newline),
+    ),
+
+    event_body: $ => seq(
+      $._indent,
+      repeat(choice(
+        $.event_statement,
+        seq($.comment, optional($._newline)),
+      )),
+      $._dedent,
+    ),
+
+    event_statement: $ => seq(
+      token(/[^\n\r]+/),
       optional($._newline),
     ),
 

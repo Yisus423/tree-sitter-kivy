@@ -136,6 +136,108 @@ BoxLayout:
         (dotted_ref)))))
 
 ==================
+Event binding — multiline body, two statements
+==================
+
+BoxLayout:
+    on_release:
+        root.manager.transition.direction = 'right'
+        root.manager.current = 'menu'
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (event_body
+        (event_statement)
+        (event_statement)))))
+
+==================
+Event binding — multiline body, single statement
+==================
+
+Button:
+    on_press:
+        self.action()
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (event_body
+        (event_statement)))))
+
+==================
+Event binding — multiline body followed by next declaration
+==================
+
+BoxLayout:
+    on_release:
+        root.cleanup()
+    text: "Done"
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (event_body
+        (event_statement)))
+    (property
+      name: (identifier)
+      value: (property_value
+        (string)))))
+
+==================
+Event binding — multiline body with comment
+==================
+
+BoxLayout:
+    on_release:
+        # setup
+        root.start()
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (event_body
+        (comment)
+        (event_statement)))))
+
+==================
+Event binding — multiline body with blank lines
+==================
+
+BoxLayout:
+    on_release:
+        root.a()
+
+        root.b()
+
+---
+
+(source_file
+  (root_rule
+    name: (identifier)
+    (event_binding
+      event: (event_name)
+      handler: (event_body
+        (event_statement)
+        (event_statement)))))
+
+==================
 Property starting with on but not binding (no _ after on)
 ==================
 

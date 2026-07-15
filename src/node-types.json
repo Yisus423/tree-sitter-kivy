@@ -220,12 +220,40 @@
         "required": true,
         "types": [
           {
+            "type": "event_body",
+            "named": true
+          },
+          {
             "type": "property_value",
             "named": true
           }
         ]
       }
     }
+  },
+  {
+    "type": "event_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "event_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "event_statement",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "id_declaration",
