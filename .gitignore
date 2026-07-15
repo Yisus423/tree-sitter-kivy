@@ -1,10 +1,13 @@
-# dependencies (bun install)
+# dependencies
 node_modules
 
-# output
+# build output
 out
 dist
 *.tgz
+*.so
+*.o
+*.wasm
 
 # code coverage
 coverage
@@ -15,30 +18,46 @@ logs
 _.log
 report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
-# dotenv environment variable files
+# env
 .env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+.env.*
+!.env.example
 
 # caches
 .eslintcache
 .cache
 *.tsbuildinfo
 
-# IntelliJ based IDEs
+# IDE
 .idea
+.vscode
+*.swp
+*.swo
 
-# Finder (MacOS) folder config
+# OS
 .DS_Store
+Thumbs.db
 
-# tree-sitter compiled binaries
-*.so
-*.o
-*.wasm
+# tree-sitter specific
+kivy.so
 
-# opencode internal cache
-.atl/*.cache.json
-# Local AI runtime state
+# opencode
 .atl/
+.atl/*.cache.json
+
+# Rust
+Cargo.lock
+
+# Python
+*.pyc
+__pycache__/
+*.egg-info/
+build/
+dist/
+
+# Go
+go.sum
+
+# Node
+package-lock.json
+prebuilds/

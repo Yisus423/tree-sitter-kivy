@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx tree-sitter test
+      - run: node test/e2e/verify.mjs
+
+  wasm:
+    name: WASM Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npx tree-sitter build --wasm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tree-sitter-kivy-wasm
+          path: tree-sitter-kivy.wasm
+
+  rust:
+    name: Rust Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - run: cargo build
+      - run: cargo test

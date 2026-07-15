@@ -1,0 +1,35 @@
+[package]
+name = "tree-sitter-kivy"
+description = "Kivy KV language grammar for tree-sitter"
+version = "0.1.3"
+authors = []
+license = "MIT"
+readme = "README.md"
+keywords = ["incremental", "parsing", "tree-sitter", "kivy", "kvlang"]
+categories = ["parsing", "text-editors"]
+repository = "https://github.com/tree-sitter/tree-sitter-kivy"
+edition = "2021"
+autoexamples = false
+rust-version = "1.80"
+
+build = "bindings/rust/build.rs"
+include = [
+    "LICENSE",
+    "bindings/rust/*",
+    "grammar.js",
+    "queries/*",
+    "src/*",
+    "tree-sitter.json",
+]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-language = "0.1"
+
+[build-dependencies]
+cc = "1.2"
+
+[dev-dependencies]
+tree-sitter = "0.25"
