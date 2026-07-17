@@ -96,7 +96,7 @@ function escapeRegex(str) {
 
 const EXPECTED_HIGHLIGHTS = {
   'simple-app.kv': [
-    { capture: 'keyword', text: 'kivy', desc: '#:kivy directive keyword' },
+    { capture: 'keyword.directive', text: 'kivy', desc: '#:kivy directive keyword' },
     { capture: 'keyword.import', text: 'import', desc: '#:import directive keyword' },
     { capture: 'module', text: 'FloatLayout', desc: 'Import alias' },
     { capture: 'string.special.path', text: ' kivy.uix.floatlayout', desc: 'Import module path' },
@@ -116,7 +116,7 @@ const EXPECTED_HIGHLIGHTS = {
     { capture: 'keyword.function', text: 'Rectangle', desc: 'Canvas instruction' },
     { capture: 'variable.special', text: 'title_label', desc: 'ID declaration name' },
     { capture: 'punctuation.delimiter', desc: 'Delimiters' },
-    { capture: 'operator', text: '@', desc: 'Base class operator' },
+    { capture: 'punctuation.special', text: '@', desc: 'Base class operator' },
     { capture: 'comment', text: '# Main container with background', desc: 'Comment' },
   ],
   'complex-canvas.kv': [
@@ -133,7 +133,7 @@ const EXPECTED_HIGHLIGHTS = {
     { capture: 'property', text: 'orientation', desc: 'BoxLayout orientation' },
     { capture: 'property', text: 'padding', desc: 'BoxLayout padding' },
     { capture: 'property', text: 'spacing', desc: 'BoxLayout spacing' },
-    { capture: 'operator', text: '@', desc: 'Base class operator' },
+    { capture: 'punctuation.special', text: '@', desc: 'Base class operator' },
   ],
 };
 
