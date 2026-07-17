@@ -833,7 +833,7 @@
           "name": "value",
           "content": {
             "type": "SYMBOL",
-            "name": "property_value"
+            "name": "value"
           }
         },
         {
@@ -873,7 +873,7 @@
               "name": "handler",
               "content": {
                 "type": "SYMBOL",
-                "name": "property_value"
+                "name": "value"
               }
             },
             {
@@ -914,7 +914,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "event_statement"
+                "name": "_expression_line"
               },
               {
                 "type": "SEQ",
@@ -946,7 +946,7 @@
         }
       ]
     },
-    "event_statement": {
+    "_expression_line": {
       "type": "SEQ",
       "members": [
         {
@@ -1032,7 +1032,7 @@
         }
       ]
     },
-    "property_value": {
+    "value": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",

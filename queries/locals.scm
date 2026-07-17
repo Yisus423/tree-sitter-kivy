@@ -57,4 +57,4 @@
 (canvas_instruction
   name: (identifier) @local.reference)
 
-; Event handler — now raw text in property_value; handled by Python injection
+; Event handler — raw text in value; handled by Python injection

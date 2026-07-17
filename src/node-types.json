@@ -166,7 +166,7 @@
             "named": true
           },
           {
-            "type": "property_value",
+            "type": "value",
             "named": true
           }
         ]
@@ -184,18 +184,9 @@
         {
           "type": "comment",
           "named": true
-        },
-        {
-          "type": "event_statement",
-          "named": true
         }
       ]
     }
-  },
-  {
-    "type": "event_statement",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "id_declaration",
@@ -294,17 +285,12 @@
         "required": true,
         "types": [
           {
-            "type": "property_value",
+            "type": "value",
             "named": true
           }
         ]
       }
     }
-  },
-  {
-    "type": "property_value",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "root_rule",
@@ -491,6 +477,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "widget_declaration",

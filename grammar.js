@@ -161,7 +161,7 @@ module.exports = grammar({
     property: $ => seq(
       field('name', $.identifier),
       ':',
-      field('value', $.property_value),
+      field('value', $.value),
       optional($._newline),
     ),
 
@@ -169,7 +169,7 @@ module.exports = grammar({
       field('event', $.event_name),
       ':',
       choice(
-        field('handler', $.property_value),
+        field('handler', $.value),
         field('handler', $.event_body),
       ),
       optional($._newline),
@@ -178,13 +178,13 @@ module.exports = grammar({
     event_body: $ => seq(
       $._indent,
       repeat(choice(
-        $.event_statement,
+        $._expression_line,
         seq($.comment, optional($._newline)),
       )),
       $._dedent,
     ),
 
-    event_statement: $ => seq(
+    _expression_line: $ => seq(
       token(/[^\n\r]+/),
       optional($._newline),
     ),
@@ -198,7 +198,7 @@ module.exports = grammar({
       optional($._newline),
     ),
 
-    property_value: $ => token(/[^\n\r]+/),
+    value: $ => token(/[^\n\r]+/),
 
     comment: $ => token(seq('#', /[^\n]*/)),
 

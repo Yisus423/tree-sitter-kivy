@@ -55,7 +55,7 @@ Template rule — with body
       name: (identifier))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Template rule — no body, followed by another rule
@@ -138,4 +138,4 @@ Template rule — with canvas block in body
         name: (identifier)
         (property
           name: (identifier)
-          value: (property_value))))))
+          value: (value))))))

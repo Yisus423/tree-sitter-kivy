@@ -64,30 +64,29 @@ Rule header + INDENT MUST produce a `block` child closed by matching DEDENT. Emp
 
 ### Requirement: Declaration Lines
 
-A declaration MUST be property (`identifier: <property_value>`), event binding (`on_identifier:` followed by inline handler or indented `event_body` block), ID (`id: name`), or canvas block (`canvas:`, `canvas.before:`, `canvas.after:`). ID value MUST be a bare identifier or quoted string. Property values MUST be a catch-all raw text token (the entire line after `:`); type resolution is delegated to tree-sitter-python via language injection in `injections.scm`. An event binding's inline handler MUST be a `property_value`. An event binding's multiline form MUST be followed by a NEWLINE and INDENT after the colon, and SHALL contain zero or more `event_statement` nodes per non-blank line under an `event_body` node. Blank lines inside `event_body` SHALL be silently skipped. Comments inside `event_body` SHALL be permitted.
-(Previously: property values had typed child nodes (string, number, boolean, tuple, list, dict, dotted_ref, identifier, raw_value) with a hidden `_raw_value` suffix catch-all. This was removed in 2026-07-14-type-checking-removal because it constituted semantic type-checking at the grammar level — an antipattern for tree-sitter. Property values are now a flat catch-all `token(/[^\n\r]+/)`. Type resolution happens via tree-sitter-python injection.)
+A declaration MUST be property (`identifier: <value>`), event binding (`on_identifier:` followed by inline handler or indented `event_body` block), ID (`id: name`), or canvas block (`canvas:`, `canvas.before:`, `canvas.after:`). ID value MUST be a bare identifier or quoted string. Property values MUST be a catch-all raw text token (the entire line after `:`); type resolution is delegated to tree-sitter-python via language injection in `injections.scm`. An event binding's inline handler MUST be a `value`. An event binding's multiline form MUST be followed by a NEWLINE and INDENT after the colon, and SHALL contain zero or more hidden `_expression_line` rules per non-blank line under an `event_body` node. Blank lines inside `event_body` SHALL be silently skipped. Comments inside `event_body` SHALL be permitted.
 
 | GIVEN | Expectation |
 |-------|-------------|
-| `text: "Hello"` | property node: key "text", value `property_value` (raw text `"Hello"`) |
-| `font_size: 24` | property node: key "font_size", value `property_value` (raw text `24`) |
-| `opacity: 0.5` | property node: key "opacity", value `property_value` (raw text `0.5`) |
-| `offset: -3` | property node: key "offset", value `property_value` (raw text `-3`) |
-| `disabled: True` | property node: key "disabled", value `property_value` (raw text `True`) |
-| `disabled: False` | property node: key "disabled", value `property_value` (raw text `False`) |
-| `color: None` | property node: key "color", value `property_value` (raw text `None`) |
-| `size_hint: size` | property node: key "size_hint", value `property_value` (raw text `size`) |
-| `pos: self.center_x` | property node: key "pos", value `property_value` (raw text `self.center_x`) |
-| `size: (100, 200)` | property node: key "size", value `property_value` (raw text `(100, 200)`) |
-| `size: (100,)` | property node: key "size", value `property_value` (raw text `(100,)`) |
-| `font_size: self.parent.width * 0.5` | property node: key "font_size", value `property_value` (raw text `self.parent.width * 0.5`) |
-| `size_hint: (root.x + root.y)` | property node: key "size_hint", value `property_value` (raw text `(root.x + root.y)`) |
+| `text: "Hello"` | property node: key "text", value `(value)` (raw text `"Hello"`) |
+| `font_size: 24` | property node: key "font_size", value `(value)` (raw text `24`) |
+| `opacity: 0.5` | property node: key "opacity", value `(value)` (raw text `0.5`) |
+| `offset: -3` | property node: key "offset", value `(value)` (raw text `-3`) |
+| `disabled: True` | property node: key "disabled", value `(value)` (raw text `True`) |
+| `disabled: False` | property node: key "disabled", value `(value)` (raw text `False`) |
+| `color: None` | property node: key "color", value `(value)` (raw text `None`) |
+| `size_hint: size` | property node: key "size_hint", value `(value)` (raw text `size`) |
+| `pos: self.center_x` | property node: key "pos", value `(value)` (raw text `self.center_x`) |
+| `size: (100, 200)` | property node: key "size", value `(value)` (raw text `(100, 200)`) |
+| `size: (100,)` | property node: key "size", value `(value)` (raw text `(100,)`) |
+| `font_size: self.parent.width * 0.5` | property node: key "font_size", value `(value)` (raw text `self.parent.width * 0.5`) |
+| `size_hint: (root.x + root.y)` | property node: key "size_hint", value `(value)` (raw text `(root.x + root.y)`) |
 | `on_press: print("clicked")` | event_binding: event "press" |
-| `on_release:\n    root.go()\n    root.stop()` in rule body | event_binding: event "release", handler `event_body` with two `event_statement` children |
-| `on_press:\n    self.action()` in rule body | event_binding: event "press", handler `event_body` with one `event_statement` child |
-| `on_release:\n    root.cleanup()\n  text: "Done"` in rule body | event_binding with `event_body`, then property node |
-| `on_release:\n    # comment\n    root.start()` in rule body | event_binding: `event_body` containing comment token and `event_statement` |
-| `on_release:\n    root.a()\n\n    root.b()` in rule body | event_binding: `event_body` with two `event_statement`, blank line silently skipped |
+| `on_release:\n    root.go()\n    root.stop()` in rule body | event_binding: event "release", handler `(event_body)` |
+| `on_press:\n    self.action()` in rule body | event_binding: event "press", handler `(event_body)` |
+| `on_release:\n    root.cleanup()\n  text: "Done"` in rule body | event_binding with `(event_body)`, then property node |
+| `on_release:\n    # comment\n    root.start()` in rule body | event_binding: `(event_body)` containing `(comment)` |
+| `on_release:\n    root.a()\n\n    root.b()` in rule body | event_binding: `(event_body)`, blank line silently skipped |
 | `id: my_button` | id_declaration: value "my_button" |
 | `id: "my_button"` | id_declaration: value "my_button" |
 | `canvas:` in rule body | `canvas_block` node |

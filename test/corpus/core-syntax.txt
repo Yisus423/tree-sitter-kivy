@@ -68,7 +68,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Rule body empty — header only
@@ -97,7 +97,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Event binding — on_press
@@ -113,7 +113,7 @@ BoxLayout:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (property_value))))
+      handler: (value))))
 
 ==================
 Event binding — with underscore in name
@@ -129,7 +129,7 @@ BoxLayout:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (property_value))))
+      handler: (value))))
 
 ==================
 Event binding — multiline body, two statements
@@ -147,9 +147,7 @@ BoxLayout:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (event_body
-        (event_statement)
-        (event_statement)))))
+      handler: (event_body))))
 
 ==================
 Event binding — multiline body, single statement
@@ -166,8 +164,7 @@ Button:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (event_body
-        (event_statement)))))
+      handler: (event_body))))
 
 ==================
 Event binding — multiline body followed by next declaration
@@ -185,11 +182,10 @@ BoxLayout:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (event_body
-        (event_statement)))
+      handler: (event_body))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Event binding — multiline body with comment
@@ -208,8 +204,7 @@ BoxLayout:
     (event_binding
       event: (event_name)
       handler: (event_body
-        (comment)
-        (event_statement)))))
+        (comment)))))
 
 ==================
 Event binding — multiline body with blank lines
@@ -228,9 +223,7 @@ BoxLayout:
     name: (identifier)
     (event_binding
       event: (event_name)
-      handler: (event_body
-        (event_statement)
-        (event_statement)))))
+      handler: (event_body))))
 
 ==================
 Property starting with on but not binding (no _ after on)
@@ -246,7 +239,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 ID declaration — bare name
@@ -342,7 +335,7 @@ BoxLayout:
     (comment)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Blank lines between declarations
@@ -360,10 +353,10 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Blank lines between top-level rules
@@ -397,7 +390,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Mixed indent — 4 then 6 spaces
@@ -415,10 +408,10 @@ BoxLayout:
     (widget_declaration
       name: (identifier)
       (ERROR
-        (property_value))
+        (value))
       (property
         name: (identifier)
-        value: (property_value)))))
+        value: (value)))))
 
 ==================
 Tab indent — 1 tab = 8 spaces
@@ -434,7 +427,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Tabs vs spaces at same level — ERROR
@@ -451,7 +444,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (root_rule
     name: (identifier)
     (ERROR)))
@@ -483,14 +476,14 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (root_rule
     name: (identifier)
     (ERROR
       (UNEXPECTED '1'))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 id: without value — edge case
@@ -574,7 +567,7 @@ Global rule — with body
   (class_rule
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Negated class rule — no body
@@ -602,7 +595,7 @@ Negated class rule — with body
     negated: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Negated class rule with base — ERROR
@@ -684,7 +677,7 @@ Multiclass — with body
       name: (identifier))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Multiclass — trailing comma ERROR
@@ -733,7 +726,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Number — float
@@ -749,7 +742,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Number — negative
@@ -765,7 +758,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Boolean — True and False
@@ -782,10 +775,10 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 None keyword
@@ -801,7 +794,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Bare identifier
@@ -817,7 +810,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dotted reference — 2 parts
@@ -833,7 +826,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dotted reference — 3 parts
@@ -849,7 +842,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Tuple — empty
@@ -865,7 +858,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Tuple — single element with trailing comma
@@ -881,7 +874,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Tuple — multiple elements
@@ -897,7 +890,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Tuple — with dotted refs
@@ -913,7 +906,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Raw value — arithmetic expression
@@ -929,7 +922,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Raw value — function call
@@ -945,7 +938,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Raw value — parenthesized expression (catch-all)
@@ -961,7 +954,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 List — empty
@@ -977,7 +970,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 List — numbers
@@ -993,7 +986,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 List — mixed types
@@ -1009,7 +1002,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 List — nested inside tuple
@@ -1025,7 +1018,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 List — trailing comma
@@ -1041,7 +1034,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 #: inside rule body — no crash, consumed as content
@@ -1059,7 +1052,7 @@ BoxLayout:
     (comment)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict — empty
@@ -1075,7 +1068,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict — simple key-value pairs
@@ -1091,7 +1084,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict — trailing comma
@@ -1107,7 +1100,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict — mixed value types
@@ -1123,7 +1116,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict inside tuple
@@ -1139,7 +1132,7 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
 
 ==================
 Dict inside list
@@ -1155,4 +1148,4 @@ BoxLayout:
     name: (identifier)
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))

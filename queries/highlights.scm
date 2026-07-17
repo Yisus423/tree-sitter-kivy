@@ -84,11 +84,7 @@
 (event_binding
   event: (event_name) @attribute)
 
-; Event statement — Python code line inside multiline event body
-; (content highlighted via Python injection in injections.scm)
-(event_statement) @embedded
-
-; Event binding — handler catches property_value (now raw text, handled by Python injection)
+; Event binding — handler catches value (now raw text, handled by Python injection)
 
 ;----------------------------------------------------------------------
 ; Phase 1.5: Values and identifiers
@@ -105,7 +101,7 @@
 (id_declaration
   name: (string) @string)
 
-; Property values — now raw text, handled by Python injection
+; Values — now raw text, handled by Python injection
 
 ; Punctuation — brackets that still exist in grammar
 ; ( ) { } were removed with tuple/dict_value/rules

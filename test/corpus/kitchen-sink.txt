@@ -75,34 +75,34 @@ Kitchen sink — all features combined
       name: (identifier))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (event_binding
       event: (event_name)
-      handler: (property_value))
+      handler: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (widget_declaration
       name: (identifier)
       (canvas_block
@@ -110,15 +110,15 @@ Kitchen sink — all features combined
           name: (identifier)
           (property
             name: (identifier)
-            value: (property_value)))
+            value: (value)))
         (canvas_instruction
           name: (identifier)
           (property
             name: (identifier)
-            value: (property_value))
+            value: (value))
           (property
             name: (identifier)
-            value: (property_value))))
+            value: (value))))
       (canvas_block
         (canvas_instruction
           name: (identifier)
@@ -129,23 +129,23 @@ Kitchen sink — all features combined
           name: (identifier))
         (property
           name: (identifier)
-          value: (property_value)))))
+          value: (value)))))
   (class_rule
     (class_entry
       name: (identifier)
       base: (identifier))
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (class_rule
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (class_rule
     negated: (identifier)
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (class_rule
     (class_entry
       name: (identifier))
@@ -153,20 +153,20 @@ Kitchen sink — all features combined
       name: (identifier))
     (property
       name: (identifier)
-      value: (property_value)))
+      value: (value)))
   (template_rule
     (template_entry
       name: (identifier)
       base: (identifier))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))
+      value: (value))
     (property
       name: (identifier)
-      value: (property_value))))
+      value: (value))))
