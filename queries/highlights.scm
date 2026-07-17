@@ -1,27 +1,39 @@
 ; highlights.scm — kvlang syntax highlighting
 ;
+; Pure S-expressions with universal predicates for cross-editor portability.
 ; Order: most-specific parent-context captures first,
 ; then anonymous token sets, then catch-all last.
-;
-; Per design: Pure S-expressions, no predicates, for cross-editor portability.
 
 ;----------------------------------------------------------------------
-; Phase 1.1: Core structure — comments, strings
+; Comments
 ;----------------------------------------------------------------------
 
 (comment) @comment @spell
+
+; TODO/FIXME/HACK/WARNING tags in comments
+((comment) @comment.todo @nospell
+  (#lua-match? @comment "^[^\\S\\n]*#.*\\b(TODO|WIP)\\b"))
+((comment) @comment.warning @nospell
+  (#lua-match? @comment "^[^\\S\\n]*#.*\\b(HACK|WARNING|WARN|FIX|FIXME|BUG|XXX)\\b"))
+
+;----------------------------------------------------------------------
+; Strings
+;----------------------------------------------------------------------
+
 (string) @string
 
 ;----------------------------------------------------------------------
-; Phase 1.2: Directives — import, set, kivy, include
+; Directives
 ;----------------------------------------------------------------------
+
+; Directive headers (#:) — handled by external scanner
 
 ; Directive keywords
 ["import" "include"] @keyword.import
-["set" "kivy"] @keyword
+["set" "kivy"] @keyword.directive
 "id" @keyword
 
-; Import directive — alias → @module, module path → @string.special.path
+; Import directive — alias → @module, module → @string.special.path
 (import_directive
   alias: (identifier) @module)
 (import_directive
@@ -40,7 +52,7 @@
   path: (directive_value) @string.special.path)
 
 ;----------------------------------------------------------------------
-; Phase 1.3: Rules and widget layer
+; Rule definitions (class, template, root)
 ;----------------------------------------------------------------------
 
 ; Root rule — name → @function (matches kivy.vim convention)
@@ -61,6 +73,10 @@
 (template_entry
   base: (identifier) @type)
 
+;----------------------------------------------------------------------
+; Widget layer
+;----------------------------------------------------------------------
+
 ; Widget declaration — name → @function (matches kivy.vim convention)
 (widget_declaration
   name: (identifier) @function)
@@ -69,14 +85,20 @@
 (property
   name: (identifier) @property)
 
+; Id declaration — name → @variable.special or @string
+(id_declaration
+  name: (identifier) @variable.special)
+(id_declaration
+  name: (string) @string)
+
 ;----------------------------------------------------------------------
-; Phase 1.4: Canvas and events
+; Canvas and events
 ;----------------------------------------------------------------------
 
 ; Canvas block headers
 ["canvas" "canvas.before" "canvas.after"] @keyword
 
-; Canvas instruction — name → @keyword.function (matches kivy.vim's Statement)
+; Canvas instruction — name → @keyword.function
 (canvas_instruction
   name: (identifier) @keyword.function)
 
@@ -84,33 +106,25 @@
 (event_binding
   event: (event_name) @attribute)
 
-; Event binding — handler catches value (now raw text, handled by Python injection)
-
 ;----------------------------------------------------------------------
-; Phase 1.5: Values and identifiers
+; Values and built-in references
 ;----------------------------------------------------------------------
 
 ; Kivy built-in references — self, root, app
-; Uses built-in #any-of? predicate (NOT Lua-specific — works in all tree-sitter impls)
 (identifier) @variable.builtin
 (#any-of? @variable.builtin "self" "root" "app")
 
-; Id declaration — name → @variable.special or @string
-(id_declaration
-  name: (identifier) @variable.special)
-(id_declaration
-  name: (string) @string)
+;----------------------------------------------------------------------
+; Punctuation
+;----------------------------------------------------------------------
 
-; Values — now raw text, handled by Python injection
-
-; Punctuation — brackets that still exist in grammar
-; ( ) { } were removed with tuple/dict_value/rules
-; [ ] < > remain as anonymous tokens in template/class rules
 ["[" "]" "<" ">"] @punctuation.bracket
 [":" ","] @punctuation.delimiter
+"@" @punctuation.special
+["+" "-"] @operator
 
-; Operators
-["@" "+" "-"] @operator
+;----------------------------------------------------------------------
+; Catch-all identifier — MUST be last
+;----------------------------------------------------------------------
 
-; Catch-all identifier — MUST be last so specific parent-context captures win
 (identifier) @variable

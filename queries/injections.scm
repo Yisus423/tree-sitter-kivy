@@ -1,16 +1,25 @@
 ; injections.scm — kvlang Python injection
 ;
-; Injects Python syntax highlighting into property values.
-; value spans the full expression text; include-children
-; ensures the Python parser sees the entire expression, not just
-; the first matched child node.
+; Kivy property values and event handlers are Python expressions.
+; We inject Python into event-driven properties (on_*) and known
+; expression properties, with a generic fallback for all values.
 
-((value) @injection.content
- (#set! injection.language "python")
- (#set! injection.include-children))
+; Event bindings — on_* handlers contain Python expressions
+; (matches Kivy's parser: if name[:3] == 'on_')
+(property
+  name: (identifier) @_prop
+  (#lua-match? @_prop "^on_")
+  value: (value) @injection.content
+  (#set! injection.language "python")
+  (#set! injection.include-children))
 
 ; Event body — multiline Python statements inside event bindings
-; include-children ensures each expression line is included
 ((event_body) @injection.content
- (#set! injection.language "python")
- (#set! injection.include-children))
+  (#set! injection.language "python")
+  (#set! injection.include-children))
+
+; Fallback: generic value → Python
+; All Kivy property values are Python expressions
+((value) @injection.content
+  (#set! injection.language "python")
+  (#set! injection.include-children))
