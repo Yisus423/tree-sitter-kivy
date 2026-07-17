@@ -111,8 +111,8 @@
 ;----------------------------------------------------------------------
 
 ; Kivy built-in references — self, root, app
-(identifier) @variable.builtin
-(#any-of? @variable.builtin "self" "root" "app")
+; NOTE: these appear inside `value` tokens (raw text), not as `identifier` nodes,
+; so they get Python injection highlighting instead.
 
 ;----------------------------------------------------------------------
 ; Punctuation
@@ -123,8 +123,5 @@
 "@" @punctuation.special
 ["+" "-"] @operator
 
-;----------------------------------------------------------------------
-; Catch-all identifier — MUST be last
-;----------------------------------------------------------------------
-
-(identifier) @variable
+; All identifiers are captured by their parent-context rules above.
+; No catch-all — every identifier in the grammar has a specific capture.
