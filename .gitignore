@@ -45,6 +45,9 @@ kivy.so
 .atl/
 .atl/*.cache.json
 
+# codegraph
+.codegraph/
+
 # Rust
 Cargo.lock
 
